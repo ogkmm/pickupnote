@@ -3,11 +3,11 @@ name: release
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
-    paths-ignore: 
+    branches: [main]
+    paths-ignore:
       - .github/workflows/*
     tags:
-      - "v*.*.*"
+      - 'v*.*.*'
 
 permissions:
   contents: write
