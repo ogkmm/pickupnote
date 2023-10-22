@@ -20,7 +20,7 @@ const scopes: string[] = [
 const state: string = "";
 
 // API object initial
-const spotifyApi: SpotifyWebApi = new SpotifyWebApi({
+export const spotifyApi: SpotifyWebApi = new SpotifyWebApi({
     redirectUri: redirectUri,
     clientId: clientId,
     clientSecret: clientSecret
