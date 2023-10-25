@@ -23,3 +23,5 @@ jobs:
         with:
           release-type: node
           token: ${{ secrets.GITHUB_TOKEN }}
+          changelog-types: '[{"type":"feat","section":"🎉 Features","hidden":false},{"type":"fix","section":"🚧 Bug Fixes","hidden":false},{"type":"chore","section":"📦️ Miscellaneous","hidden":false}]'
+          pull-request-header: ':beers: Here is your new release :)'
