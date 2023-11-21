@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/ogkmm/shuman/compare/v0.1.0...v0.1.1) (2023-11-21)
+
+
+### 📦️ Miscellaneous
+
+* add issue templates ([#4](https://github.com/ogkmm/shuman/issues/4)) ([b478ff5](https://github.com/ogkmm/shuman/commit/b478ff5b89c33412b8a7f8d284e9c0a24ddc28c2))
+
 ## 0.1.0 (2023-10-25)
 
 
