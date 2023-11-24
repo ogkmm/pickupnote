@@ -344,6 +344,18 @@
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.5.tgz#4751153abbf8d6199babb345a52e1eb4167d64af"
   integrity sha512-s/FPdYRmZR8SjLWGMCuax7r3qCWQw9QKHzXVukAuuIJkXkDRwp+Pu5LMIVFi0Fxbav35WURicYr8u1QsoybnQw==
 
+"@types/spotify-api@*":
+  version "0.0.25"
+  resolved "https://registry.yarnpkg.com/@types/spotify-api/-/spotify-api-0.0.25.tgz#9dabb3b0a1f0527ed61936ebf8a80c1d138c27c3"
+  integrity sha512-okhoy0U9fPWtwqCfbDyW8VxamhqvXE0gXIVeMOh5HcvEFQvWW2X0VsvdiX/OyiGQpZbZiOJXIGrbnIPfK0AIpA==
+
+"@types/spotify-web-api-node@^5.0.11":
+  version "5.0.11"
+  resolved "https://registry.yarnpkg.com/@types/spotify-web-api-node/-/spotify-web-api-node-5.0.11.tgz#f88de5d22aa3973c760777b3c29eee2b3dc9a5e8"
+  integrity sha512-RS3IkSqH9geC61e8qd+Oy7giOTtiY7ywm0Z4bu5uYuc7XuOcLfDwKjmle85IbpTEdazeCgmIbo8nMLg7WDVvgw==
+  dependencies:
+    "@types/spotify-api" "*"
+
 "@typescript-eslint/parser@^5.4.2 || ^6.0.0":
   version "6.9.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-6.9.0.tgz#2b402cadeadd3f211c25820e5433413347b27391"
