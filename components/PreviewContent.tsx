@@ -3,8 +3,8 @@ import React, { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { GrFormNextLink } from 'react-icons/gr';
-import useTrack from '@/hooks/useTrack';
 import SvgSpinners3DotsFade from './svgs/SvgSpinners3DotsFade';
+import useSpotifyLink from '@/hooks/useSpotifyLink';
 
 interface WarpperProps extends React.HTMLAttributes<HTMLDivElement> {}
 interface PreviewContentProps {
@@ -25,7 +25,7 @@ const Warpper: FC<WarpperProps> = ({ children, className }) => {
 };
 
 const PreviewContent: FC<PreviewContentProps> = ({ url }) => {
-  const { track, isLoading, isError } = useTrack(url);
+  const { data, isLoading, isError } = useSpotifyLink(url);
 
   if (isLoading)
     return (
@@ -45,20 +45,20 @@ const PreviewContent: FC<PreviewContentProps> = ({ url }) => {
     <Warpper className="justify-between">
       <div className="flex gap-[28px] h-[64px] justify-center items-center">
         <Image
-          src={track!.image}
+          src={data!.image}
           width={64}
           height={64}
           alt="Avatar"
           className="rounded-lg"
         />
         <div className="flex flex-col gap-[4px] text-xs">
-          <p>{track!.title}</p>
+          <p>{data!.title}</p>
           <div className="flex gap-2">
-            {track!.authors.map((a: string, i: number) => (
+            {data!.authors.map((a: string, i: number) => (
               <p key={i}>{a}</p>
             ))}
           </div>
-          <p>{`${track!.type} • ${track!.releaseYear}`}</p>
+          <p>{`${data!.type} • ${data!.releaseYear}`}</p>
         </div>
       </div>
       <Link

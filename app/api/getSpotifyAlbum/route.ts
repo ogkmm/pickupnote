@@ -6,16 +6,14 @@ export async function POST(request: Request) {
 
   try {
     await initializeSpotifyApi();
-    const res = await spotifyApi.getTrack(id);
-    console.log('A Spotify track is fetched.');
+    const res = await spotifyApi.getAlbum(id);
+    console.log('A Spotify album is fetched.');
 
-    // extract data: { type, title, authors, releaseYear, image }
     const type: string = res.body.type;
     const title: string = res.body.name;
     const authors: string[] = res.body.artists.map((artist) => artist.name);
-    const releaseYear: string = res.body.album.release_date.split('-')[0];
-    // use 300 x 300 image
-    const image: string = res.body.album.images[1].url;
+    const releaseYear: string = res.body.release_date.split('-')[0];
+    const image: string = res.body.images[1].url;
 
     return NextResponse.json({
       type: type,

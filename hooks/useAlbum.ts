@@ -1,7 +1,7 @@
 'use client';
 import useSWR from 'swr';
 
-export interface Track {
+export interface Album {
   type: string;
   title: string;
   authors: string[];
@@ -17,9 +17,9 @@ const fetcher = (url: string, id: string) =>
     body: JSON.stringify({ id: id })
   }).then((res) => res.json());
 
-const useTrack = (id: string) => {
-  const { data, error, isLoading } = useSWR<Track, Error>(
-    ['/api/getSpotifyTrack', id],
+const useAlbum = (id: string) => {
+  const { data, error, isLoading } = useSWR<Album, Error>(
+    ['/api/getSpotifyAlbum', id],
     ([u, id]) => fetcher(u, id as string),
     { revalidateOnFocus: false }
   );
@@ -31,4 +31,4 @@ const useTrack = (id: string) => {
   };
 };
 
-export default useTrack;
+export default useAlbum;
