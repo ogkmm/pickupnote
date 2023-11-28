@@ -1,13 +1,8 @@
 'use client';
+import { SpotifyDataHook, Album } from '@/lib/type';
 import useSWR from 'swr';
 
-export interface Album {
-  type: string;
-  title: string;
-  authors: string[];
-  releaseYear: string;
-  image: string;
-}
+const hookType: SpotifyDataHook = 'AlbumDataHook';
 
 const fetcher = (url: string, id: string) =>
   fetch(url, {
@@ -27,7 +22,8 @@ const useAlbum = (id: string) => {
   return {
     data,
     isLoading,
-    isError: error
+    isError: error,
+    type: hookType
   };
 };
 

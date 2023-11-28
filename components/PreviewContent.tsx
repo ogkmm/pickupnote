@@ -54,11 +54,11 @@ const PreviewContent: FC<PreviewContentProps> = ({ url }) => {
         <div className="flex flex-col gap-[4px] text-xs">
           <p>{data!.title}</p>
           <div className="flex gap-2">
-            {data!.authors.map((a: string, i: number) => (
+            {data!.explanation.map((a: string, i: number) => (
               <p key={i}>{a}</p>
             ))}
           </div>
-          <p>{`${data!.type} • ${data!.releaseYear}`}</p>
+          <p>{`${data!.type} • ${data!.additionInfo}`}</p>
         </div>
       </div>
       <Link

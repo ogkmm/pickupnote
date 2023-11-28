@@ -1,8 +1,8 @@
 'use client';
-import { SpotifyDataHook, Track } from '@/lib/type';
+import { SpotifyDataHook, Artist } from '@/lib/type';
 import useSWR from 'swr';
 
-const hookType: SpotifyDataHook = 'TrackDataHook';
+const hookType: SpotifyDataHook = 'ArtistDataHook';
 
 const fetcher = (url: string, id: string) =>
   fetch(url, {
@@ -12,9 +12,9 @@ const fetcher = (url: string, id: string) =>
     body: JSON.stringify({ id: id })
   }).then((res) => res.json());
 
-const useTrack = (id: string) => {
-  const { data, error, isLoading } = useSWR<Track, Error>(
-    ['/api/getSpotifyTrack', id],
+const useArtist = (id: string) => {
+  const { data, error, isLoading } = useSWR<Artist, Error>(
+    ['/api/getSpotifyArtist', id],
     ([u, id]) => fetcher(u, id as string),
     { revalidateOnFocus: false }
   );
@@ -27,4 +27,4 @@ const useTrack = (id: string) => {
   };
 };
 
-export default useTrack;
+export default useArtist;
