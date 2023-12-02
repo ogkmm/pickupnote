@@ -1,33 +1,31 @@
-import { FC } from 'react';
-import { cn } from '@/lib/utils';
-import { LoginOutButton } from './button/LoginOutButton';
-import NormalButton from './button/NormalButton';
 import Link from 'next/link';
+import React from 'react';
+import NormalButton from './button/NormalButton';
+import LoginOutButton from './button/LoginOutButton';
+import { cn } from '@/lib/utils';
+import LogoEn from './svgs/LogoEn';
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-const Header: FC<HeaderProps> = ({ children, className, ...props }) => {
+const Header = ({ className, ...props }: HeaderProps) => {
   return (
     <div
       className={cn(
-        'relative min-h-screen max-w-site mx-auto px-10',
+        'w-10/12 max-w-[1168px] px-[16px] rounded-[12px] z-[100]',
         className
       )}
       {...props}
     >
-      <div className="absolute top-0 left-0 right-0 px-10">
-        <nav className="flex justify-between border-b-2 border-black dark:border-white py-3">
-          <Link href="/" className="font-bold text-lg my-auto">
-            Shuman
-          </Link>
-          <div className="flex gap-4">
-            <NormalButton name="切换语言" />
-            <NormalButton name="会员计划" />
-            <LoginOutButton />
-          </div>
-        </nav>
-      </div>
-      <main className="flex flex-col overflow-y-auto">{children}</main>
+      <nav className="flex justify-between items-center pb-[16px] pt-[28px]">
+        <Link href="/" className="">
+          <LogoEn />
+        </Link>
+        <div className="flex gap-[28px]">
+          <NormalButton name="切换语言" />
+          <NormalButton name="会员计划" />
+          <LoginOutButton />
+        </div>
+      </nav>
     </div>
   );
 };

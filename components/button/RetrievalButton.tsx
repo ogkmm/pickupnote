@@ -12,13 +12,13 @@ export const RetrievalButton = forwardRef<
   return (
     <button
       className={cn(
-        'bg-zinc-500 rounded-full py-2 px-8 text-xs text-white hover:bg-green-600 transition-colors duration-300 ease-in-out',
+        'bg-[#423FA1] opacity-[.85] rounded-[8px] py-2 px-8 text-xs text-white hover:opacity-100 transition-opacity duration-300 ease-in-out',
         className
       )}
       ref={ref}
       {...props}
     >
-      {retrievalButtonText}
+      <p>{retrievalButtonText}</p>
     </button>
   );
 });

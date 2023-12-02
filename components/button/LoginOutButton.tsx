@@ -8,7 +8,7 @@ export const LoginOutButton: React.FC<LoginOutButtonProps> = (props) => {
   return (
     <button
       className={cn(
-        'bg-transparent rounded-full py-1 px-4 border-black dark:border-white border-[1px] text-xs hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-colors duration-300 ease-in-out',
+        'bg-transparent rounded-[8px] py-[8px] px-[24px] border-black dark:border-white border-[2px] text-[14px] hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-colors duration-300 ease-in-out',
         props.className
       )}
     >

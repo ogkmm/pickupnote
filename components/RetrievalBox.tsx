@@ -9,7 +9,7 @@ const RetrievalBox = forwardRef<HTMLInputElement, RetrievalBoxProps>(
     return (
       <input
         className={cn(
-          'bg-slate-200 rounded-full py-2 px-4 opacity-70 caret-black dark:text-black placeholder:text-xs',
+          'min-w-[268px] bg-white hover:bg-[#F6F7F6] focus:bg-[#DFE0DE] rounded-[8px] py-2 px-4 opacity-70 caret-[#423FA1] outline-none dark:text-black placeholder:text-xs',
           className
         )}
         type="url"
