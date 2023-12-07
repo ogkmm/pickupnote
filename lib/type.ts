@@ -56,3 +56,26 @@ export interface General {
   explanation: string[];
   additionInfo: string | number;
 }
+
+export type AspectRatio = {
+  name: string;
+  type: AspectRatioType;
+  icon: JSX.Element;
+};
+
+export type AspectRatioType =
+  | 'LONGPICTURE'
+  | 'FULLSCREEN'
+  | 'SQUARE'
+  | 'SIXTEENNINE'
+  | 'UNKNOWN';
+
+export type Appearence = {
+  name: string;
+  default: boolean;
+};
+
+export type Pattern = {
+  name: string;
+  icon: JSX.Element;
+};

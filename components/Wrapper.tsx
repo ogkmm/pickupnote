@@ -6,7 +6,7 @@ interface WrapperProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const Wrapper: FC<WrapperProps> = ({ children, className, ...props }) => {
   return (
-    <div
+    <div  
       className={cn(
         'relative rounded-[20px] bg-[#EEF95D] m-[16px] flex flex-col items-center overflow-hidden',
         className
@@ -15,7 +15,7 @@ const Wrapper: FC<WrapperProps> = ({ children, className, ...props }) => {
       {...props}
     >
       <Header />
-      <main className="w-full flex-1 flex flex-col overflow-hidden">
+      <main className="w-full flex-1 flex flex-col items-center overflow-hidden">
         {children}
       </main>
     </div>
