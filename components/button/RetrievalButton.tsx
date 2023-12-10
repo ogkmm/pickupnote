@@ -8,7 +8,7 @@ interface RetrievalButtonProps
 export const RetrievalButton = forwardRef<
   HTMLButtonElement,
   RetrievalButtonProps
->(({ className, ...props }, ref) => {
+>(({ className, children, ...props }, ref) => {
   return (
     <button
       className={cn(
@@ -18,7 +18,7 @@ export const RetrievalButton = forwardRef<
       ref={ref}
       {...props}
     >
-      <p>{retrievalButtonText}</p>
+      { children || <p>{retrievalButtonText}</p>}
     </button>
   );
 });

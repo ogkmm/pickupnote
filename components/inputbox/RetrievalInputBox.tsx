@@ -2,9 +2,10 @@ import React, { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 import { retrievalBoxPlaceHolderText } from '@/lib/constants';
 
-interface RetrievalBoxProps extends React.HTMLAttributes<HTMLInputElement> {}
+interface RetrievalInputBoxProps
+  extends React.HTMLAttributes<HTMLInputElement> {}
 
-const RetrievalBox = forwardRef<HTMLInputElement, RetrievalBoxProps>(
+const RetrievalInputBox = forwardRef<HTMLInputElement, RetrievalInputBoxProps>(
   ({ className, ...props }, ref) => {
     return (
       <input
@@ -21,6 +22,6 @@ const RetrievalBox = forwardRef<HTMLInputElement, RetrievalBoxProps>(
   }
 );
 
-RetrievalBox.displayName = 'RetrievalBox';
+RetrievalInputBox.displayName = 'RetrievalInputBox';
 
-export default RetrievalBox;
+export default RetrievalInputBox;

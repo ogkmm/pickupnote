@@ -29,3 +29,15 @@ body {
     display: none;
   }
 }
+
+.tz {
+  transition-property: transform;
+  transform: translateZ(0) scale(0);
+  transform-origin: top right;
+}
+
+#rsr-input-box:focus ~ .tz {
+  transition-property: transform;
+  transform: translateZ(0) scale(1);
+  transform-origin: top left;
+}

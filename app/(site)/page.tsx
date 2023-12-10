@@ -1,10 +1,9 @@
 'use client';
 import { RetrievalButton } from '@/components/button/RetrievalButton';
-import RetrievalBox from '@/components/RetrievalBox';
+import RetrievalInputBox from '@/components/inputbox/RetrievalInputBox';
 import CicleInfo from '@/components/svgs/CicleInfo';
 import DottedWaterfall from '@/components/svgs/DottedWaterfall';
 import React, { useRef, useState } from 'react';
-import { IoShareOutline } from 'react-icons/io5';
 
 export default function Home() {
   const ref = useRef<HTMLInputElement | null>(null);
@@ -37,7 +36,7 @@ export default function Home() {
               <p>如何获得曲目链接</p>
             </button>
             <div className="flex flex-nowrap gap-[4px] min-w-[420px] max-w-[504px] my-[11px] p-[4px] bg-white rounded-[8px]">
-              <RetrievalBox className="flex-1" ref={ref} />
+              <RetrievalInputBox className="flex-1" ref={ref} />
               <RetrievalButton onClick={clickHandle} />
             </div>
           </div>

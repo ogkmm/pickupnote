@@ -1,4 +1,6 @@
 'use client';
+import LinkReSelector from '@/components/LinkReSelector';
+import Note from '@/components/Note';
 import AppearenceCollapse from '@/components/collapse/AppearenceCollapse';
 import AspectRatioCollapse from '@/components/collapse/AspectRatioCollapse';
 import PatternCollapse from '@/components/collapse/PatternCollapse';
@@ -26,7 +28,12 @@ export default function Create() {
             }}
           />
         </div>
-        <div className="h-full flex-1"></div>
+        <div className="h-full flex-1">
+          <div className="h-full flex flex-col gap-[12px]">
+            <LinkReSelector />
+            <Note className="flex-1" />
+          </div>
+        </div>
       </div>
     </section>
   );
