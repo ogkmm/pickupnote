@@ -1,15 +1,34 @@
 import Image from 'next/image';
 import RetrievalButton from './button/RetrievalButton';
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useRef } from 'react';
 import { cn } from '@/lib/utils';
+import SharePosterModal from './SharePosterModal';
 
 interface NoteProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const Note: FC<NoteProps> = ({ className, ...props }) => {
   const [enteredCharacterLength, setEnteredCharacterLength] = useState(0);
+  const modalRef = useRef<HTMLDialogElement>(null);
 
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setEnteredCharacterLength(e.target.value.length);
+  };
+
+  const handleGenerateButtonClick = (e: React.MouseEvent<HTMLElement>) => {
+    if (modalRef.current) {
+      /**
+       * Server Communication
+       * - Save current user memo
+       * - Clean local storage
+       */
+
+      /* modal element (daisyUI) has a pre-defined showModal() method */
+      modalRef.current.showModal();
+    }
+  };
+
+  const handleModalOnClose = () => {
+    console.log('Closed!!!');
   };
 
   return (
@@ -21,6 +40,8 @@ const Note: FC<NoteProps> = ({ className, ...props }) => {
       {...props}
     >
       <div id="holes" className="bg-white w-full h-[20px] my-[4px]" />
+
+      {/* Music Info */}
       <div id="music-card" className="flex justify-between px-[4px]">
         <div id="music-info" className="flex flex-1 gap-[20px] pb-[8px]">
           <Image src="/example.jpeg" width={96} height={96} alt="spotify" />
@@ -38,6 +59,8 @@ const Note: FC<NoteProps> = ({ className, ...props }) => {
           </div>
         </div>
       </div>
+
+      {/* Editor Area */}
       <div id="bd" className="relative flex flex-col grow gap-[12px]">
         <div
           id="editor"
@@ -57,10 +80,15 @@ const Note: FC<NoteProps> = ({ className, ...props }) => {
             <p className="text-[12px] text-[#757771]">已保存</p>
           </div>
           <div id="button">
-            <RetrievalButton>生成海报</RetrievalButton>
+            <RetrievalButton onClick={(e) => handleGenerateButtonClick(e)}>
+              生成海报
+            </RetrievalButton>
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      <SharePosterModal ref={modalRef} onClose={handleModalOnClose} />
     </div>
   );
 };
