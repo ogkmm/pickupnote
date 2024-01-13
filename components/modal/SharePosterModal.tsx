@@ -1,15 +1,18 @@
 import React, { forwardRef } from 'react';
-import Modal from './modal/Modal';
-import AppearenceCollapse from './collapse/AppearenceCollapse';
-import AspectRatioCollapse from './collapse/AspectRatioCollapse';
-import PatternCollapse from './collapse/PatternCollapse';
+import Modal from './Modal';
+import AppearenceCollapse from '../collapse/AppearenceCollapse';
+import AspectRatioCollapse from '../collapse/AspectRatioCollapse';
+import PatternCollapse from '../collapse/PatternCollapse';
+import Poster from '../posters/Poster';
+import SharingOptionGroup from '../SharingOptionGroup';
 
 interface SharePosterModalProps {
   onClose(): void;
+  detail: any;
 }
 
 const SharePosterModal = forwardRef<HTMLDialogElement, SharePosterModalProps>(
-  ({ onClose }, ref) => {
+  ({ onClose, detail }, ref) => {
     return (
       <Modal ref={ref}>
         <form method="dialog">
@@ -25,7 +28,7 @@ const SharePosterModal = forwardRef<HTMLDialogElement, SharePosterModalProps>(
           分享海报
         </p>
         <div className="flex justify-between gap-[24px]">
-          <div className="max-w-[311px] flex flex-col gap-[16px]">
+          <div className="max-w-[315px] h-full flex flex-col gap-[16px] overflow-auto">
             <AppearenceCollapse
               onRadioChange={(list) => {
                 console.log(list);
@@ -42,7 +45,13 @@ const SharePosterModal = forwardRef<HTMLDialogElement, SharePosterModalProps>(
               }}
             />
           </div>
-          <div className="flex flex-col min-w-[327px]"></div>
+          <div className="flex flex-col w-[327px] gap-[16px]">
+            <Poster
+              posterDetail={detail}
+              date={new Date(Date.now()).toISOString()}
+            />
+            <SharingOptionGroup />
+          </div>
         </div>
       </Modal>
     );

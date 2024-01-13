@@ -2,13 +2,25 @@ import Image from 'next/image';
 import RetrievalButton from './button/RetrievalButton';
 import React, { FC, useState, useRef } from 'react';
 import { cn } from '@/lib/utils';
-import SharePosterModal from './SharePosterModal';
+import SharePosterModal from './modal/SharePosterModal';
 
 interface NoteProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const Note: FC<NoteProps> = ({ className, ...props }) => {
   const [enteredCharacterLength, setEnteredCharacterLength] = useState(0);
   const modalRef = useRef<HTMLDialogElement>(null);
+  const detail = {
+    shareTarget: {
+      type: 'Album',
+      title: 'LANDER',
+      authors: ['LiSA'],
+      releaseYear: '2020',
+      image: '/example.jpeg'
+    },
+    comment:
+      'Even factoring differences in body weight between children and adults into account, it would still.',
+    id: '78qoF0s9vf9twx2eOijPuq'
+  };
 
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setEnteredCharacterLength(e.target.value.length);
@@ -88,7 +100,11 @@ const Note: FC<NoteProps> = ({ className, ...props }) => {
       </div>
 
       {/* Modal */}
-      <SharePosterModal ref={modalRef} onClose={handleModalOnClose} />
+      <SharePosterModal
+        ref={modalRef}
+        detail={detail}
+        onClose={handleModalOnClose}
+      />
     </div>
   );
 };

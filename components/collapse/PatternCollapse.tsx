@@ -43,7 +43,7 @@ const PatternCollapse: FC<PatternCollapseProps> = ({ onRadioChange }) => {
                 key={index}
                 className="flex flex-col gap-[14px] items-center"
               >
-                <DefaultPattern />
+                {pattern.icon}
                 <div className="flex flex-col">
                   <input
                     id={`p${index}`}
