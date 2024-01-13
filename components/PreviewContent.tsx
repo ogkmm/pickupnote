@@ -15,7 +15,7 @@ const Warpper: FC<WarpperProps> = ({ children, className }) => {
   return (
     <div
       className={cn(
-        'flex px-7 py-5 bg-slate-100 dark:bg-slate-300 rounded-2xl dark:text-black',
+        'flex px-7 py-5 bg-slate-100 rounded-2xl',
         className
       )}
     >
@@ -36,7 +36,7 @@ const PreviewContent: FC<PreviewContentProps> = ({ url }) => {
 
   if (isError)
     return (
-      <Warpper className="justify-center bg-yellow-500 dark:bg-yellow-500">
+      <Warpper className="justify-center bg-yellow-500">
         <p className="text-black">⚠️ Check your Spotify link and try again.</p>
       </Warpper>
     );

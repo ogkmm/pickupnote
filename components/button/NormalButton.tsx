@@ -12,7 +12,7 @@ export const NormalButton: React.FC<NormalButtonProps> = ({
   return (
     <button
       className={cn(
-        'text-[14px] hover:text-slate-500 dark:hover:text-slate-300 transition-colors duration-300 ease-in-out',
+        'text-[14px] hover:text-slate-500 transition-colors duration-300 ease-in-out',
         props.className
       )}
     >

@@ -9,6 +9,7 @@ interface NoteProps extends React.HTMLAttributes<HTMLDivElement> {}
 const Note: FC<NoteProps> = ({ className, ...props }) => {
   const [enteredCharacterLength, setEnteredCharacterLength] = useState(0);
   const modalRef = useRef<HTMLDialogElement>(null);
+  /* dummy data */
   const detail = {
     shareTarget: {
       type: 'Album',
@@ -46,7 +47,7 @@ const Note: FC<NoteProps> = ({ className, ...props }) => {
   return (
     <div
       className={cn(
-        'flex flex-col gap-[12px] pt-[32px] pb-[24px] px-[16px] rounded-[12px] bg-[#EEF95D] overflow-auto',
+        'flex flex-col gap-[12px] pt-[32px] pb-[24px] px-[16px] rounded-[12px] bg-[#EEF95D] overflow-auto hidden-scrollbar',
         className
       )}
       {...props}
@@ -79,7 +80,7 @@ const Note: FC<NoteProps> = ({ className, ...props }) => {
           className="h-full flex flex-col gap-[4px] py-[24px] px-[20px] rounded-[12px] bg-white"
         >
           <textarea
-            className="w-full h-full text-[14px] resize-none outline-none placeholder:text-[#CACBC9]"
+            className="w-full h-full text-[14px] bg-white resize-none outline-none placeholder:text-[#CACBC9]"
             placeholder="想写点什么?"
             onChange={handleTextareaChange}
           />

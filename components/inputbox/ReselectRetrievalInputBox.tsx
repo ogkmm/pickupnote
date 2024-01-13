@@ -16,7 +16,7 @@ const ReselectRetrievalInputBox = forwardRef<
       <input
         id="rsr-input-box"
         className={cn(
-          'group bg-white my-[12px] border-b-black focus:outline-none dark:text-black placeholder:text-[17px] disabled:cursor-not-allowed',
+          'group bg-white my-[12px] border-b-black focus:outline-none placeholder:text-[17px] disabled:cursor-not-allowed',
           className
         )}
         type="url"

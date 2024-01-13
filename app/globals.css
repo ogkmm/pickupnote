@@ -9,8 +9,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 255, 255, 255;
   }
 }
 
@@ -21,15 +21,16 @@ body {
 
 @layer utilities {
   .hidden-scrollbar {
-    -ms-overflow-style: none; /* IE, Edge 対応 */
-    scrollbar-width: none; /* Firefox 対応 */
+    -ms-overflow-style: none; /* IE, Edge */
+    scrollbar-width: none; /* Firefox */
   }
   .hidden-scrollbar::-webkit-scrollbar {
-    /* Chrome, Safari 対応 */
+    /* Chrome, Safari */
     display: none;
   }
 }
 
+/* Input box animation effect */
 .tz {
   transition-property: transform;
   transform: translateZ(0) scale(0);
