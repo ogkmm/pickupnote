@@ -4,17 +4,20 @@ import RetrievalInputBox from '@/components/inputbox/RetrievalInputBox';
 import CicleInfo from '@/components/svgs/CicleInfo';
 import DottedWaterfall from '@/components/svgs/DottedWaterfall';
 import React, { useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const ref = useRef<HTMLInputElement | null>(null);
   const [previewEnabled, setPreviewEnabled] = useState(false);
   const [shareLink, setShareLink] = useState<string>('');
+  const router = useRouter();
 
   const clickHandle = () => {
     if (ref.current?.value) {
       setPreviewEnabled(true);
       setShareLink(ref.current.value);
     }
+    router.push('/create');
   };
 
   return (
