@@ -18,7 +18,7 @@ export const RetrievalButton = forwardRef<
       ref={ref}
       {...props}
     >
-      { children || <p>{retrievalButtonText}</p>}
+      {children || <p>{retrievalButtonText}</p>}
     </button>
   );
 });

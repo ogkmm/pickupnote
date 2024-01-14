@@ -13,12 +13,7 @@ interface PreviewContentProps {
 
 const Warpper: FC<WarpperProps> = ({ children, className }) => {
   return (
-    <div
-      className={cn(
-        'flex px-7 py-5 bg-slate-100 rounded-2xl',
-        className
-      )}
-    >
+    <div className={cn('flex px-7 py-5 bg-slate-100 rounded-2xl', className)}>
       {children}
     </div>
   );
