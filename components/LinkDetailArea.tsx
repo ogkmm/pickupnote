@@ -1,6 +1,9 @@
 import React, { FC } from 'react';
+import Image from 'next/image';
 
 const trackTitle: string = 'LANDER';
+const trackImage: string =
+  'https://i.scdn.co/image/ab67616d0000b273d0388bce045641c4168f5f22';
 
 const trackList: string[] = [
   '往け',
@@ -22,6 +25,7 @@ const trackList: string[] = [
 const dummyData = {
   trackTitle: trackTitle,
   trackList: trackList,
+  trackImage: trackImage,
   artist: 'LiSA',
   duration: '3603',
   releaseDate: '2023-03-03',
@@ -66,22 +70,22 @@ const DetailView: FC<DetailViewProps> = ({
 
 const LinkDetailArea = () => {
   return (
-    <div className="w-[327px] h-full rounded-[12px] bg-white px-[28px] py-[32px]">
-      <div className="h-full flex flex-col gap-[28px]">
-        <div id="target-title-bar" className="flex flex-col gap-[14px]">
+    <div className="w-[327px] h-full rounded-[12px] bg-gray-100 px-[28px] py-[32px]">
+      <div className="h-full flex flex-col justify-center items-center gap-[14px] overflow-auto hidden-scrollbar">
+        <div className="text-center">
+          <Image src={trackImage} width={250} height={250} alt="Image" />
+        </div>
+        <div className="w-full flex flex-col gap-[14px]">
           {/* Title corresponding to the link entity */}
           <p className="font-bold text-[28px/31px]">{trackTitle}</p>
           <div className="border-b-[1px] border-[#CACBC9]" />
-        </div>
-        <div
-          id="target-body"
-          className="flex flex-col gap-[16px] overflow-auto hidden-scrollbar"
-        >
-          <DetailView name="曲目" contentList={dummyData.trackList} />
-          <DetailView name="艺术家" contentString={dummyData.artist} />
-          <DetailView name="时长" contentString={dummyData.duration} />
-          <DetailView name="发行日期" contentString={dummyData.releaseDate} />
-          <DetailView name="发行方" contentList={dummyData.publisher} />
+          <div id="target-body" className="flex flex-col gap-[16px]">
+            <DetailView name="曲目" contentList={dummyData.trackList} />
+            {/* <DetailView name="艺术家" contentString={dummyData.artist} /> */}
+            {/* <DetailView name="时长" contentString={dummyData.duration} /> */}
+            {/* <DetailView name="发行日期" contentString={dummyData.releaseDate} /> */}
+            {/* <DetailView name="发行方" contentList={dummyData.publisher} /> */}
+          </div>
         </div>
       </div>
     </div>

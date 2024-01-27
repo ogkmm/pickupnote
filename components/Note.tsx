@@ -52,12 +52,17 @@ const Note: FC<NoteProps> = ({ className, ...props }) => {
       )}
       {...props}
     >
-      <div id="holes" className="bg-white w-full h-[20px] my-[4px]" />
+      {/* <div id="holes" className="bg-white w-full h-[20px] my-[4px]" /> */}
 
       {/* Music Info */}
       <div id="music-card" className="flex justify-between px-[4px]">
         <div id="music-info" className="flex flex-1 gap-[20px] pb-[8px]">
-          <Image src="/example.jpeg" width={96} height={96} alt="spotify" />
+          <Image
+            src="https://i.scdn.co/image/ab67616d0000b273d0388bce045641c4168f5f22"
+            width={96}
+            height={96}
+            alt="spotify"
+          />
           <div className="flex flex-1 items-end">
             <div className="flex flex-col text-[14px] leading-[18px] gap-[8px]">
               <p>专辑</p>

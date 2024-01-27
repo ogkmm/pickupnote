@@ -13,6 +13,6 @@ const config: Config = {
       }
     }
   },
-  plugins: [require('daisyui')]
+  plugins: [require('daisyui'), require('@anuragroy/tailwindcss-animate')]
 };
 export default config;

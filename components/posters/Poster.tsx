@@ -7,7 +7,6 @@ interface PosterProps {
   userInfo?: any;
 }
 const Poster: FC<PosterProps> = ({ posterDetail, date }) => {
-  console.log(date);
   return (
     <>
       <div className="p-[8px] bg-[#EEF95D]">

@@ -5,6 +5,15 @@ import CicleInfo from '@/components/svgs/CicleInfo';
 import DottedWaterfall from '@/components/svgs/DottedWaterfall';
 import React, { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger
+} from '@/components/Sheet';
+import PosterCreator from '@/components/PosterCreator';
 
 export default function Home() {
   const ref = useRef<HTMLInputElement | null>(null);
@@ -12,12 +21,13 @@ export default function Home() {
   const [shareLink, setShareLink] = useState<string>('');
   const router = useRouter();
 
-  const clickHandle = () => {
-    if (ref.current?.value) {
-      setPreviewEnabled(true);
-      setShareLink(ref.current.value);
+  const clickHandle = (): void => {
+    if (!ref.current?.value) {
+      console.log('pls paste you link and continue.');
+      return;
     }
-    router.push('/create');
+    setPreviewEnabled(true);
+    setShareLink(ref.current.value);
   };
 
   return (
@@ -40,7 +50,14 @@ export default function Home() {
             </button>
             <div className="flex flex-nowrap gap-[4px] min-w-[420px] max-w-[504px] my-[11px] p-[4px] bg-white rounded-[8px]">
               <RetrievalInputBox className="flex-1" ref={ref} />
-              <RetrievalButton onClick={clickHandle} />
+              <Sheet>
+                <SheetTrigger asChild>
+                  <RetrievalButton />
+                </SheetTrigger>
+                <SheetContent>
+                  <PosterCreator />
+                </SheetContent>
+              </Sheet>
             </div>
           </div>
         </div>
