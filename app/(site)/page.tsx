@@ -1,19 +1,13 @@
 'use client';
-import { RetrievalButton } from '@/components/button/RetrievalButton';
+import NoteStartButton from '@/components/button/NoteStartButton';
 import RetrievalInputBox from '@/components/inputbox/RetrievalInputBox';
 import CicleInfo from '@/components/svgs/CicleInfo';
-import DottedWaterfall from '@/components/svgs/DottedWaterfall';
 import React, { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger
-} from '@/components/Sheet';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/Sheet';
 import PosterCreator from '@/components/PosterCreator';
+import KVGridStyleBG from '@/components/svgs/KVGridStyleBG';
+import KVLogo from '@/components/svgs/KVLogo';
 
 export default function Home() {
   const ref = useRef<HTMLInputElement | null>(null);
@@ -32,27 +26,22 @@ export default function Home() {
 
   return (
     <>
-      <section className="relative w-full h-full flex justify-center">
-        <div className="flex items-center w-10/12 max-w-[1168px]">
-          <div className="absolute z-10 left-1/2 top-1/2 -translate-y-[20%] -translate-x-[10%] overflow-hidden">
-            <DottedWaterfall />
-            <DottedWaterfall />
+      <section className="w-full h-full flex justify-center overflow-auto hidden-scrollbar">
+        <div className="relative flex justify-center items-center w-10/12 max-w-[1168px]">
+          <div className="absolute z-10 left-1/2 top-1/2 -translate-y-[50%] -translate-x-[50%] overflow-hidden">
+            <KVGridStyleBG />
           </div>
-          <div className="basis-1/2">{/*"placeholder"*/}</div>
-          <div className="relative flex flex-col basis-1/2 justify-center items-center gap-[57px] z-20">
-            <div className="px-2 text-center text-[56px] font-bold leading-tight truncate">
-              <p>停半拍</p>
-              <p>标记我最爱的那首歌</p>
-            </div>
-            <button className="flex justify-center items-center gap-[8px] text-[14px] opacity-70 hover:opacity-100 transition-opacity duration-300 ease-in-out text-[#757771]">
+          <div className="flex flex-col justify-center items-center gap-[24px] z-20">
+            <KVLogo />
+            <button className="flex justify-center items-center gap-[8px] mt-[8px] text-[14px] opacity-70 hover:opacity-100 transition-opacity duration-300 ease-in-out text-[#757771]">
               <CicleInfo />
               <p>如何获得曲目链接</p>
             </button>
-            <div className="flex flex-nowrap gap-[4px] min-w-[420px] max-w-[504px] my-[11px] p-[4px] bg-white rounded-[8px]">
-              <RetrievalInputBox className="flex-1" ref={ref} />
+            <div className="flex flex-nowrap justify-center items-center gap-[8px] min-w-[311px] sm:min-w-[528px] my-[11px] py-[9px] px-[24px] bg-white rounded-[8px]">
+              <RetrievalInputBox ref={ref} />
               <Sheet>
                 <SheetTrigger asChild>
-                  <RetrievalButton />
+                  <NoteStartButton onClick={clickHandle} />
                 </SheetTrigger>
                 <SheetContent>
                   <PosterCreator />
@@ -60,14 +49,6 @@ export default function Home() {
               </Sheet>
             </div>
           </div>
-        </div>
-        <div className="absolute w-full top-2/3 flex flex-col gap-[17.5px]">
-          {/** a horizontal line with border 2px */}
-          <div className="w-full border-t-2 border-[#CAD44F]" />
-          <div className="w-full border-t-2 border-[#CAD44F]" />
-          <div className="w-full border-t-2 border-[#CAD44F]" />
-          <div className="w-full border-t-2 border-[#CAD44F]" />
-          <div className="w-full border-t-2 border-[#CAD44F]" />
         </div>
       </section>
     </>

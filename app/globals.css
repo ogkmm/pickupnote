@@ -37,8 +37,21 @@ body {
   transform-origin: top right;
 }
 
+/* reselect retrieval input box */
 #rsr-input-box:focus ~ .tz {
   transition-property: transform;
   transform: translateZ(0) scale(1);
   transform-origin: top left;
+}
+
+/* note start input box */
+#ns-input-box:focus ~ .tz {
+  transition-property: transform;
+  transform: translateZ(0) scale(1);
+  transform-origin: top left;
+}
+
+.note-start-color {
+  filter: invert(23%) sepia(36%) saturate(3008%) hue-rotate(225deg)
+    brightness(92%) contrast(92%);
 }
