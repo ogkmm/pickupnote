@@ -4,24 +4,38 @@ import RetrievalInputBox from '@/components/inputbox/RetrievalInputBox';
 import CicleInfo from '@/components/svgs/CicleInfo';
 import React, { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/Sheet';
+import { Sheet, SheetContent } from '@/components/Sheet';
 import PosterCreator from '@/components/PosterCreator';
 import KVGridStyleBG from '@/components/svgs/KVGridStyleBG';
 import KVLogo from '@/components/svgs/KVLogo';
+import { toastError } from '@/lib/utils';
+import toast from 'react-hot-toast';
+import axios from 'axios';
+import { spotifyMediaInfoApi } from '@/lib/constants';
 
 export default function Home() {
-  const ref = useRef<HTMLInputElement | null>(null);
-  const [previewEnabled, setPreviewEnabled] = useState(false);
-  const [shareLink, setShareLink] = useState<string>('');
+  const inputBoxRef = useRef<HTMLInputElement | null>(null);
+  const [sheetOpen, setSheetOpen] = useState<boolean>(false);
   const router = useRouter();
 
   const clickHandle = (): void => {
-    if (!ref.current?.value) {
-      console.log('pls paste you link and continue.');
+    const shareLink: string | undefined = inputBoxRef.current?.value;
+    if (!shareLink) {
+      toastError('Enter a link please.');
+      setSheetOpen(false);
       return;
     }
-    setPreviewEnabled(true);
-    setShareLink(ref.current.value);
+
+    const fetchData = async (link: string) => {
+      const { data } = await axios.post(spotifyMediaInfoApi, { url: link });
+      console.log(data);
+      setSheetOpen(true);
+    };
+    toast.promise(fetchData(shareLink), {
+      loading: 'Picking up...',
+      success: 'Successfully picked up.',
+      error: 'Picked up failed.'
+    });
   };
 
   return (
@@ -38,11 +52,9 @@ export default function Home() {
               <p>如何获得曲目链接</p>
             </button>
             <div className="flex flex-nowrap justify-center items-center gap-[8px] min-w-[311px] sm:min-w-[528px] my-[11px] py-[9px] px-[24px] bg-white rounded-[8px]">
-              <RetrievalInputBox ref={ref} />
-              <Sheet>
-                <SheetTrigger asChild>
-                  <NoteStartButton onClick={clickHandle} />
-                </SheetTrigger>
+              <RetrievalInputBox ref={inputBoxRef} />
+              <NoteStartButton onClick={clickHandle} />
+              <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
                 <SheetContent>
                   <PosterCreator />
                 </SheetContent>

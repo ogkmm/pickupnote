@@ -1,6 +1,7 @@
 import clsx, { ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { SpotifyLinkType } from './type';
+import toast from 'react-hot-toast';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -77,4 +78,22 @@ export const postData = async ({
   }
 
   return res.json();
+};
+
+export const toastError = (text: string) => {
+  toast.error(text, {
+    iconTheme: {
+      primary: '#713200',
+      secondary: '#FFFAEE'
+    }
+  });
+};
+
+export const toastSuccess = (text: string) => {
+  toast.success(text, {
+    iconTheme: {
+      primary: '#423FA1',
+      secondary: '#FFFAEE'
+    }
+  });
 };

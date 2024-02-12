@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import Wrapper from '@/components/Wrapper';
+import { Toaster } from 'react-hot-toast';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,6 +21,13 @@ export default function RootLayout({
     <html lang="en" className="bg-white">
       <body className={cn(inter.className)}>
         <Wrapper>{children}</Wrapper>
+        <Toaster
+          position="top-center"
+          containerStyle={{
+            top: 50
+          }}
+          reverseOrder={false}
+        />
       </body>
     </html>
   );
