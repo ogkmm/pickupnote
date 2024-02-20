@@ -1,5 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import Image from 'next/image';
+import { DataContext } from '@/lib/context';
 
 const trackTitle: string = 'LANDER';
 const trackImage: string =
@@ -56,7 +57,7 @@ const DetailView: FC<DetailViewProps> = ({
           ) : (
             <>
               <ol>
-                {contentList!.map((l, i) => (
+                {contentList?.map((l, i) => (
                   <li key={i}>{`${i + 1}. ${l}`}</li>
                 ))}
               </ol>
@@ -69,18 +70,26 @@ const DetailView: FC<DetailViewProps> = ({
 };
 
 const LinkDetailArea = () => {
+  const musicInfo = useContext(DataContext);
+  const iterable =
+    musicInfo.itemType === 'album' || musicInfo.itemType === 'playlist';
+  const trackList = iterable
+    ? musicInfo.tracks.map((track, _) => track.title)
+    : [];
+  console.log(musicInfo);
+
   return (
     <div className="w-[327px] h-full rounded-[12px] bg-gray-100 px-[28px] py-[32px]">
       <div className="h-full flex flex-col justify-center items-center gap-[14px] overflow-auto hidden-scrollbar">
         <div className="text-center">
-          <Image src={trackImage} width={250} height={250} alt="Image" />
+          <Image src={musicInfo.image} width={250} height={250} alt="Image" />
         </div>
         <div className="w-full flex flex-col gap-[14px]">
           {/* Title corresponding to the link entity */}
-          <p className="font-bold text-[28px/31px]">{trackTitle}</p>
+          <p className="font-bold text-[28px/31px]">{musicInfo.title}</p>
           <div className="border-b-[1px] border-[#CACBC9]" />
           <div id="target-body" className="flex flex-col gap-[16px]">
-            <DetailView name="曲目" contentList={dummyData.trackList} />
+            <DetailView name="曲目" contentList={trackList} />
             {/* <DetailView name="艺术家" contentString={dummyData.artist} /> */}
             {/* <DetailView name="时长" contentString={dummyData.duration} /> */}
             {/* <DetailView name="发行日期" contentString={dummyData.releaseDate} /> */}

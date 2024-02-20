@@ -97,3 +97,10 @@ export const toastSuccess = (text: string) => {
     }
   });
 };
+
+export class MediaType {
+  _mediaType: string = 'unknown';
+  constructor(type: string) {
+    this._mediaType = type;
+  }
+}

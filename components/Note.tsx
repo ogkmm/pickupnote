@@ -1,13 +1,15 @@
 import Image from 'next/image';
 import RetrievalButton from './button/RetrievalButton';
-import React, { FC, useState, useRef } from 'react';
+import React, { FC, useState, useRef, useContext } from 'react';
 import { cn } from '@/lib/utils';
 import SharePosterModal from './modal/SharePosterModal';
+import { DataContext } from '@/lib/context';
 
 interface NoteProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const Note: FC<NoteProps> = ({ className, ...props }) => {
   const [enteredCharacterLength, setEnteredCharacterLength] = useState(0);
+  const musicInfo = useContext(DataContext);
   const modalRef = useRef<HTMLDialogElement>(null);
   /* dummy data */
   const detail = {
@@ -58,23 +60,30 @@ const Note: FC<NoteProps> = ({ className, ...props }) => {
       <div id="music-card" className="flex justify-between px-[4px]">
         <div id="music-info" className="flex flex-1 gap-[20px] pb-[8px]">
           <Image
-            src="https://i.scdn.co/image/ab67616d0000b273d0388bce045641c4168f5f22"
+            src={musicInfo.image}
             width={96}
             height={96}
-            alt="spotify"
+            alt="spotify_media_image"
           />
           <div className="flex flex-1 items-end">
             <div className="flex flex-col text-[14px] leading-[18px] gap-[8px]">
-              <p>专辑</p>
-              <p className="text-[22px] leading-[24px] font-bold">LANDER</p>
-              <p>LiSA</p>
+              <p>{musicInfo.itemType}</p>
+              <p className="text-[22px] leading-[24px] font-bold">
+                {musicInfo.title}
+              </p>
+              <p>{musicInfo.artist}</p>
             </div>
           </div>
         </div>
         <div className="flex flex-col justify-center">
-          <div id="repick-button" className="flex flex-row-reverse">
+          <a
+            id="repick-button"
+            className="flex flex-row-reverse"
+            href={`https://open.spotify.com/${musicInfo.itemType}/${musicInfo.platId}`}
+            target="_blank"
+          >
             <Image src="/spotify.svg" width={29} height={28} alt="spotify" />
-          </div>
+          </a>
         </div>
       </div>
 

@@ -1,3 +1,6 @@
+/*
+ * spotify info type
+ **/
 export type SpotifyLinkType =
   | 'Track'
   | 'Album'
@@ -57,6 +60,9 @@ export interface General {
   additionInfo: string | number;
 }
 
+/*
+ * option menu type
+ * */
 export type AspectRatio = {
   name: string;
   type: AspectRatioType;
@@ -78,4 +84,45 @@ export type Appearence = {
 export type Pattern = {
   name: string;
   icon: JSX.Element;
+};
+
+/*
+ * music info type
+ * */
+export type TrackInfo = {
+  id: number;
+  source: string;
+  itemType: string;
+  platId: string;
+  title: string;
+  image: string;
+  artist: string;
+  artists: string[];
+  publishYear: string;
+  tracks: TrackInfo[];
+  genres: { name: string }[];
+  duration_ms: number;
+};
+
+export type MusicInfo = {
+  id: number;
+  source: string;
+  itemType: string;
+  platId: string;
+  title: string;
+  image: string;
+  artist: string;
+  artists: string[];
+  publishYear: string;
+  tracks: TrackInfo[];
+  genres: { name: string }[];
+  duration_ms: number;
+  description: string;
+  followers: number;
+};
+
+export type MusicInfoResponse = {
+  resCode: string;
+  resMsg: string;
+  musicInfo: MusicInfo;
 };

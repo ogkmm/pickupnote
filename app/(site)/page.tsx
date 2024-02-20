@@ -8,14 +8,17 @@ import { Sheet, SheetContent } from '@/components/Sheet';
 import PosterCreator from '@/components/PosterCreator';
 import KVGridStyleBG from '@/components/svgs/KVGridStyleBG';
 import KVLogo from '@/components/svgs/KVLogo';
-import { toastError } from '@/lib/utils';
+import { toastError, extractIdFromSpotifyLink } from '@/lib/utils';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { spotifyMediaInfoApi } from '@/lib/constants';
+import { MusicInfo, MusicInfoResponse } from '@/lib/type';
+import { DataContext } from '@/lib/context';
 
 export default function Home() {
   const inputBoxRef = useRef<HTMLInputElement | null>(null);
   const [sheetOpen, setSheetOpen] = useState<boolean>(false);
+  const [musicInfo, setMusicInfo] = useState<MusicInfo>({} as MusicInfo);
   const router = useRouter();
 
   const clickHandle = (): void => {
@@ -27,10 +30,26 @@ export default function Home() {
     }
 
     const fetchData = async (link: string) => {
-      const { data } = await axios.post(spotifyMediaInfoApi, { url: link });
-      console.log(data);
+      const key = extractIdFromSpotifyLink(link);
+      const history = localStorage.getItem(key);
+
+      if (history) {
+        setMusicInfo(JSON.parse(history));
+      } else {
+        const { data } = await axios.post<MusicInfoResponse>(
+          spotifyMediaInfoApi,
+          {
+            url: link
+          }
+        );
+        console.log(data);
+        localStorage.setItem(key, JSON.stringify(data.musicInfo));
+        setMusicInfo(data.musicInfo);
+      }
+
       setSheetOpen(true);
     };
+
     toast.promise(fetchData(shareLink), {
       loading: 'Picking up...',
       success: 'Successfully picked up.',
@@ -56,7 +75,9 @@ export default function Home() {
               <NoteStartButton onClick={clickHandle} />
               <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
                 <SheetContent>
-                  <PosterCreator />
+                  <DataContext.Provider value={musicInfo}>
+                    <PosterCreator />
+                  </DataContext.Provider>
                 </SheetContent>
               </Sheet>
             </div>
