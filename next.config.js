@@ -1,3 +1,8 @@
+// https://github.com/contentlayerdev/contentlayer/issues/129
+// This is a walk around to fix .mjs incompatible problem
+// also see: https://github.com/vercel/next.js/issues/33693
+const { withContentlayer } = require('next-contentlayer');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -24,4 +29,4 @@ const nextConfig = {
   }
 };
 
-module.exports = nextConfig;
+module.exports = withContentlayer(nextConfig);
