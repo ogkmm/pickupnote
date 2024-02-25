@@ -6,7 +6,6 @@ import React, { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Sheet, SheetContent } from '@/components/Sheet';
 import PosterCreator from '@/components/PosterCreator';
-import KVGridStyleBG from '@/components/svgs/KVGridStyleBG';
 import KVLogo from '@/components/svgs/KVLogo';
 import { toastError, extractIdFromSpotifyLink } from '@/lib/utils';
 import toast from 'react-hot-toast';
@@ -19,7 +18,6 @@ export default function Home() {
   const inputBoxRef = useRef<HTMLInputElement | null>(null);
   const [sheetOpen, setSheetOpen] = useState<boolean>(false);
   const [musicInfo, setMusicInfo] = useState<MusicInfo>({} as MusicInfo);
-  const router = useRouter();
 
   const clickHandle = (): void => {
     const shareLink: string | undefined = inputBoxRef.current?.value;
@@ -59,31 +57,44 @@ export default function Home() {
 
   return (
     <>
-      <section className="w-full h-full flex justify-center overflow-auto hidden-scrollbar">
-        <div className="relative flex justify-center items-center w-10/12 max-w-[1168px]">
-          <div className="absolute z-10 left-1/2 top-1/2 -translate-y-[50%] -translate-x-[50%] overflow-hidden">
-            <KVGridStyleBG />
+      <div className="flex-1">
+        <section>
+          <div className="w-full h-[700px] flex justify-center items-center border-b-[0.5px] border-black">
+            <h1 className="font-bold text-5xl text-center">
+              🚧 UNDER CONSTRUCTION
+            </h1>
           </div>
-          <div className="flex flex-col justify-center items-center gap-[24px] z-20">
-            <KVLogo />
-            <button className="flex justify-center items-center gap-[8px] mt-[8px] text-[14px] opacity-70 hover:opacity-100 transition-opacity duration-300 ease-in-out text-[#757771]">
-              <CicleInfo />
-              <p>如何获得曲目链接</p>
-            </button>
-            <div className="flex flex-nowrap justify-center items-center gap-[8px] min-w-[311px] sm:min-w-[528px] my-[11px] py-[9px] px-[24px] bg-white rounded-[8px]">
-              <RetrievalInputBox ref={inputBoxRef} />
-              <NoteStartButton onClick={clickHandle} />
-              <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-                <SheetContent>
-                  <DataContext.Provider value={musicInfo}>
-                    <PosterCreator />
-                  </DataContext.Provider>
-                </SheetContent>
-              </Sheet>
+        </section>
+        <section className="w-full flex justify-center">
+          <div className="relative flex justify-center items-center w-10/12 max-w-[1168px]">
+            <div className="flex flex-col justify-center items-center gap-[24px] z-20">
+              <KVLogo />
+              <button className="flex justify-center items-center gap-[8px] mt-[8px] text-[14px] opacity-70 hover:opacity-100 transition-opacity duration-300 ease-in-out text-[#757771]">
+                <CicleInfo />
+                <p>如何获得曲目链接</p>
+              </button>
+              <div className="flex flex-nowrap justify-center items-center gap-[8px] min-w-[311px] sm:min-w-[528px] my-[11px] py-[9px] px-[24px] bg-white rounded-[8px]">
+                <RetrievalInputBox ref={inputBoxRef} />
+                <NoteStartButton onClick={clickHandle} />
+                <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+                  <SheetContent>
+                    <DataContext.Provider value={musicInfo}>
+                      <PosterCreator />
+                    </DataContext.Provider>
+                  </SheetContent>
+                </Sheet>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+        <section>
+          <div className="w-full h-[700px] flex justify-center items-center border-t-[0.5px] border-black">
+            <h1 className="font-bold text-5xl text-center">
+              🚧 UNDER CONSTRUCTION
+            </h1>
+          </div>
+        </section>
+      </div>
     </>
   );
 }

@@ -30,7 +30,7 @@ export default async function ContentPage({ params }: ContentPageProps) {
 
   return (
     <>
-      <article className="w-full px-8 max-w-4xl py-6 lg:py-12 overflow-auto hidden-scrollbar">
+      <article className="w-full px-8 max-w-4xl py-6 lg:py-12">
         <Mdx code={page.body.code} />
       </article>
     </>

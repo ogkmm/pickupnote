@@ -1,30 +1,24 @@
 import Link from 'next/link';
 import React from 'react';
 import NormalButton from './button/NormalButton';
-import LoginOutButton from './button/LoginOutButton';
 import { cn } from '@/lib/utils';
 import LogoEn from './svgs/LogoEn';
+import I18nChangeButton from './button/I18nChangeButton';
 
 interface HeaderProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const Header = ({ className, ...props }: HeaderProps) => {
   return (
-    <div
-      className={cn(
-        'w-10/12 max-w-[1168px] px-[16px] rounded-[12px] z-[100]',
-        className
-      )}
-      {...props}
-    >
-      <nav className="flex justify-between items-center pb-[16px] pt-[28px]">
-        <Link href="/" className="">
+    <div className={cn('sticky top-0 px-[32px] z-[100]', className)} {...props}>
+      <nav className="flex justify-between items-center bg-[#EEF94D] pb-[24px] pt-[32px] border-b-[0.5px] border-[#757771]">
+        <Link href="/">
           <LogoEn />
         </Link>
-        <div className="flex gap-[28px]">
-          <NormalButton name="切换语言" />
-          <NormalButton name="会员计划" />
-          <LoginOutButton />
+        <div className="flex gap-[24px]">
+          <NormalButton name="Join waitlist" />
+          <NormalButton name="Explore" />
         </div>
+        <I18nChangeButton />
       </nav>
     </div>
   );

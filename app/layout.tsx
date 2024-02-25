@@ -24,7 +24,7 @@ export default function RootLayout({
         <Toaster
           position="top-center"
           containerStyle={{
-            top: 50
+            top: 40
           }}
           reverseOrder={false}
         />
