@@ -2,6 +2,7 @@ import clsx, { ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { SpotifyLinkType } from './type';
 import toast from 'react-hot-toast';
+import { openSpotifyUrl } from './constants';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -13,6 +14,10 @@ export const isObjectEmpty = (obj: Object) => {
 
 export function checkValidURL(url: string) {
   return url.startsWith('http://') || url.startsWith('https://');
+}
+
+export function generateSpotifyLink(type: string, id: string) {
+  return `${openSpotifyUrl}/${type}/${id}`;
 }
 
 export const extractIdFromSpotifyLink = (url: string): string => {
@@ -97,10 +102,3 @@ export const toastSuccess = (text: string) => {
     }
   });
 };
-
-export class MediaType {
-  _mediaType: string = 'unknown';
-  constructor(type: string) {
-    this._mediaType = type;
-  }
-}

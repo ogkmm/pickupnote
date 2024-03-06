@@ -54,8 +54,6 @@ const Note: FC<NoteProps> = ({ className, ...props }) => {
       )}
       {...props}
     >
-      {/* <div id="holes" className="bg-white w-full h-[20px] my-[4px]" /> */}
-
       {/* Music Info */}
       <div id="music-card" className="flex justify-between px-[4px]">
         <div id="music-info" className="flex flex-1 gap-[20px] pb-[8px]">

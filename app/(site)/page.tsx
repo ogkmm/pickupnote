@@ -3,7 +3,6 @@ import NoteStartButton from '@/components/button/NoteStartButton';
 import RetrievalInputBox from '@/components/inputbox/RetrievalInputBox';
 import CicleInfo from '@/components/svgs/CicleInfo';
 import React, { useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Sheet, SheetContent } from '@/components/Sheet';
 import PosterCreator from '@/components/PosterCreator';
 import KVLogo from '@/components/svgs/KVLogo';
@@ -18,6 +17,8 @@ export default function Home() {
   const inputBoxRef = useRef<HTMLInputElement | null>(null);
   const [sheetOpen, setSheetOpen] = useState<boolean>(false);
   const [musicInfo, setMusicInfo] = useState<MusicInfo>({} as MusicInfo);
+
+  const closeSheet = () => setSheetOpen(false);
 
   const clickHandle = (): void => {
     const shareLink: string | undefined = inputBoxRef.current?.value;
@@ -79,7 +80,7 @@ export default function Home() {
                 <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
                   <SheetContent>
                     <DataContext.Provider value={musicInfo}>
-                      <PosterCreator />
+                      <PosterCreator onClose={closeSheet} />
                     </DataContext.Provider>
                   </SheetContent>
                 </Sheet>

@@ -28,6 +28,24 @@ body {
     /* Chrome, Safari */
     display: none;
   }
+
+  /* sheet responsive width */
+  .w-full-80 {
+    width: calc(100% - 80px);
+  }
+  .w-full-116 {
+    width: calc(100% - 116px);
+  }
+
+  /* sheet navbar bottom border width */
+  .w-full-48 {
+    width: calc(100% - 48px);
+  }
+
+  /* transition utilities */
+  .transition-colors-smooth {
+    @apply transition-colors duration-300 ease-in-out;
+  }
 }
 
 /* Input box animation effect */

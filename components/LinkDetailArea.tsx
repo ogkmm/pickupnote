@@ -1,40 +1,8 @@
 import React, { FC, useContext } from 'react';
 import Image from 'next/image';
 import { DataContext } from '@/lib/context';
-
-const trackTitle: string = 'LANDER';
-const trackImage: string =
-  'https://i.scdn.co/image/ab67616d0000b273d0388bce045641c4168f5f22';
-
-const trackList: string[] = [
-  '往け',
-  '一斎ノ喝采',
-  'dis/connect',
-  'シャンプーソング',
-  '明け星',
-  '白銀',
-  '炎',
-  '逃飛行',
-  'HADASHi NO STEP',
-  'シフクノトキ',
-  '土曜日のわたしたちは',
-  '悪女のオキテ',
-  'dawn',
-  'NEW ME'
-];
-
-const dummyData = {
-  trackTitle: trackTitle,
-  trackList: trackList,
-  trackImage: trackImage,
-  artist: 'LiSA',
-  duration: '3603',
-  releaseDate: '2023-03-03',
-  publisher: [
-    '2023 Stichting Metropole Orkest under exclusive license to Modern Recordings / BMG RIGHTS MANAGEMENT GmbH',
-    '2023 Stichting Metropole Orkest under exclusive license to Modern Recordings / BMG RIGHTS MANAGEMENT GmbH'
-  ]
-};
+import SpotifyLogoCombine from './svgs/SpotifyLogoCombine';
+import { generateSpotifyLink } from '@/lib/utils';
 
 interface DetailViewProps {
   name: string;
@@ -71,31 +39,69 @@ const DetailView: FC<DetailViewProps> = ({
 
 const LinkDetailArea = () => {
   const musicInfo = useContext(DataContext);
-  const iterable =
-    musicInfo.itemType === 'album' || musicInfo.itemType === 'playlist';
-  const trackList = iterable
-    ? musicInfo.tracks.map((track, _) => track.title)
-    : [];
-  console.log(musicInfo);
+  const sourceOriginLink = generateSpotifyLink(
+    musicInfo.itemType,
+    musicInfo.platId
+  );
+  // const iterable =
+  //   musicInfo.itemType === 'album' || musicInfo.itemType === 'playlist';
+  // const trackList = iterable
+  //   ? musicInfo.tracks.map((track, _) => track.title)
+  //   : [];
+  // console.log(musicInfo);
 
   return (
-    <div className="w-[327px] h-full rounded-[12px] bg-gray-100 px-[28px] py-[32px]">
-      <div className="h-full flex flex-col justify-center items-center gap-[14px] overflow-auto hidden-scrollbar">
-        <div className="text-center">
-          <Image src={musicInfo.image} width={250} height={250} alt="Image" />
-        </div>
-        <div className="w-full flex flex-col gap-[14px]">
-          {/* Title corresponding to the link entity */}
-          <p className="font-bold text-[28px/31px]">{musicInfo.title}</p>
-          <div className="border-b-[1px] border-[#CACBC9]" />
-          <div id="target-body" className="flex flex-col gap-[16px]">
-            <DetailView name="曲目" contentList={trackList} />
-            {/* <DetailView name="艺术家" contentString={dummyData.artist} /> */}
-            {/* <DetailView name="时长" contentString={dummyData.duration} /> */}
-            {/* <DetailView name="发行日期" contentString={dummyData.releaseDate} /> */}
-            {/* <DetailView name="发行方" contentList={dummyData.publisher} /> */}
+    <div
+      id="link-detail-card"
+      className="max-w-[268px] lg:max-w-[375px] flex flex-col items-center gap-[20px]"
+    >
+      <div className="md:h-[383px] flex flex-col items-center gap-[20px] md:justify-between">
+        <Image
+          id="music-image"
+          src={musicInfo.image}
+          width={268}
+          height={268}
+          alt="music image"
+          className="rounded-[8px] shadow-image"
+        />
+        <div
+          id="music-text-info"
+          className="flex flex-col items-center gap-[16px]"
+        >
+          <p
+            id="music-text-info-title"
+            className="text-balance font-bold text-[22px] lg:text-[34px] leading-[31px] lg:leading-[40px] tracking-[-.66px] lg:tracking-[-1px] line-clamp-2"
+          >
+            {musicInfo.title}
+          </p>
+          <div className="flex items-center gap-[8px] text-[17px]">
+            <p
+              id="music-text-info-artists"
+              className="max-w-[211px] truncate leading-[16px] tracking-[-.2px] font-medium"
+            >
+              {musicInfo.artist}
+            </p>
+            {/* ・ */}
+            <p>&#183;</p>
+            <p
+              id="music-text-info-year"
+              className="leading-[24px] text-[#757771]"
+            >
+              {musicInfo.publishYear}
+            </p>
           </div>
         </div>
+      </div>
+      <div
+        id="music-source"
+        className="flex gap-[8px] items-center md:mt-[44px] md:mb-[9px]"
+      >
+        <p className="text-[17px] font-medium leading-[16px] tracking-[-.2px]">
+          {'Play on'}
+        </p>
+        <a id="music-source-link" href={sourceOriginLink} target="_blank">
+          <SpotifyLogoCombine />
+        </a>
       </div>
     </div>
   );

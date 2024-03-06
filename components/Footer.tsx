@@ -10,11 +10,11 @@ const Footer: React.FC<FooterProps> = ({ className, ...props }) => {
       <div className="pt-[24px] flex flex-col gap-[14px] items-center border-t-[0.5px] border-[#757771]">
         <div className="flex justify-center gap-[52px]">
           {/* Privacy policy */}
-          <Link href="/privacy" className="text-[12px/22.5px] font-[#2A2D25]">
+          <Link href="/privacy" className="text-[12px/22.5px] text-[#2A2D25]">
             {'Privacy policy'}
           </Link>
           {/* Terms & Condition */}
-          <Link href="/terms" className="text-[12px/22.5px] font-[#2A2D25]">
+          <Link href="/terms" className="text-[12px/22.5px] text-[#2A2D25]">
             {'Terms & Condition'}
           </Link>
         </div>
