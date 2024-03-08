@@ -24,6 +24,12 @@ const nextConfig = {
         hostname: 'image-cdn-ak.spotifycdn.com',
         port: '',
         pathname: '/image/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'scannables.scdn.co',
+        port: '',
+        pathname: '/**'
       }
     ]
   }

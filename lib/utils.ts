@@ -1,6 +1,6 @@
 import clsx, { ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { SpotifyLinkType } from './type';
+import { MusicInfo, SpotifyLinkType } from './type';
 import toast from 'react-hot-toast';
 import { openSpotifyUrl } from './constants';
 
@@ -101,4 +101,11 @@ export const toastSuccess = (text: string) => {
       secondary: '#FFFAEE'
     }
   });
+};
+
+/* accquire spotify code */
+export const generateSpotifyCodeLink = (info: MusicInfo): string => {
+  const baseUrl: string =
+    'https://scannables.scdn.co/uri/plain/jpeg/010101/white/300';
+  return `${baseUrl}/spotify:${info.itemType}:${info.platId}`;
 };

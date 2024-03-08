@@ -1,23 +1,41 @@
 import LinkDetailArea from '@/components/LinkDetailArea';
 import NormalButton from './button/NormalButton';
-import React from 'react';
+import React, { useContext } from 'react';
 import SharePostorButton from './button/SharePostorButton';
 import HamburgerIcon from './svgs/HamburgerIcon';
 import CloseIcon from './svgs/CloseIcon';
 import I18nChangeButton from './button/I18nChangeButton';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/Popover';
 import { Separator } from '@/components/Separator';
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogTrigger
+} from '@/components/AlertDialog';
+import PosterPreviewPanel from './PosterPreviewPanel';
+import { DataContext } from '@/lib/context';
+import { MusicInfo } from '@/lib/type';
 
 interface PosterCreatorProps {
   onClose: () => void;
 }
 
 export default function PosterCreator({ onClose }: PosterCreatorProps) {
+  /* music info context */
+  const musicInfo: MusicInfo = useContext(DataContext);
+
   /* textarea word count */
   const [enteredCharacterLength, setEnteredCharacterLength] = React.useState(0);
-
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setEnteredCharacterLength(e.target.value.length);
+  };
+
+  /* handle open status of generated result dialog (AlertDialog) */
+  const [dialogOpenStatus, setDialogOpenStatus] = React.useState(false);
+  const handleShareButtonClick = (): void => {
+    if (!musicInfo) return;
+
+    setDialogOpenStatus(true);
   };
 
   return (
@@ -49,7 +67,7 @@ export default function PosterCreator({ onClose }: PosterCreatorProps) {
                     decorative
                     orientation="horizontal"
                   />
-                  <p className="text-[12px] font-[300px] leading-[16px] tracking-[-.4px] text-center text-[#CACBC9]">
+                  <p className="text-[12px] font-[300] leading-[16px] tracking-[-.4px] text-center text-[#CACBC9]">
                     Language
                   </p>
                   <div className="flex flex-col gap-[8px]">
@@ -112,18 +130,32 @@ export default function PosterCreator({ onClose }: PosterCreatorProps) {
                   <div className="w-full h-[291px] py-[4px] px-[28px]">
                     <textarea
                       placeholder="write something..."
-                      className="w-full h-full resize-none outline-none bg-white text-[17px] font-[400px] leading-[24px] tracking-[-.2px]"
+                      className="w-full h-full resize-none outline-none bg-white text-[17px] font-[400] leading-[24px] tracking-[-.2px]"
                       onChange={handleTextareaChange}
                     />
                   </div>
-                  <div className="mt-[20px] px-[28px] w-full flex justify-between text-[#757771] text-[12px] font-[300px] leading-[16px] tracking-[-.4px]">
+                  <div className="mt-[20px] px-[28px] w-full flex justify-between text-[#757771] text-[12px] font-[300] leading-[16px] tracking-[-.4px]">
                     <p>{'Autosaved'}</p>
                     <p>{`${enteredCharacterLength} words`}</p>
                   </div>
                 </div>
                 <div id="creator-controller" className="w-full">
                   <div className="flex flex-col items-center md:flex-row-reverse md:justify-start gap-[24px] md:gap-[48px]">
-                    <SharePostorButton />
+                    <AlertDialog
+                      open={dialogOpenStatus}
+                      onOpenChange={setDialogOpenStatus}
+                    >
+                      <AlertDialogTrigger asChild>
+                        <SharePostorButton onClick={handleShareButtonClick} />
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <PosterPreviewPanel
+                          onClose={() => {
+                            setDialogOpenStatus(false);
+                          }}
+                        />
+                      </AlertDialogContent>
+                    </AlertDialog>
                     <NormalButton name="Re-pickup" />
                   </div>
                 </div>

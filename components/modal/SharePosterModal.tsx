@@ -3,7 +3,7 @@ import Modal from './Modal';
 import AppearenceCollapse from '../collapse/AppearenceCollapse';
 import AspectRatioCollapse from '../collapse/AspectRatioCollapse';
 import PatternCollapse from '../collapse/PatternCollapse';
-import Poster from '../posters/Poster';
+import DeprecatedPoster from '../posters/DeprecatedPoster';
 import SharingOptionGroup from '../SharingOptionGroup';
 
 interface SharePosterModalProps {
@@ -46,7 +46,7 @@ const SharePosterModal = forwardRef<HTMLDialogElement, SharePosterModalProps>(
             />
           </div>
           <div className="flex flex-col w-[327px] gap-[16px]">
-            <Poster
+            <DeprecatedPoster
               posterDetail={detail}
               date={new Date(Date.now()).toISOString()}
             />
