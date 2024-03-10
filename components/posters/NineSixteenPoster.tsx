@@ -1,13 +1,13 @@
 import * as React from 'react';
-import Image from 'next/image';
 import { cn, getCurrentDate } from '@/lib/utils';
 import { DataContext } from '../provider/InterInfoProvider';
+import Image from 'next/image';
 import PknPosterBottomKV from '../PknPosterBottomKV';
 import parse from 'html-react-parser';
 
-interface StandardPosterProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface NineSixteenPosterProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-const StandardPoster: React.FC<StandardPosterProps> = ({
+const NineSixteenPoster: React.FC<NineSixteenPosterProps> = ({
   className,
   ...props
 }) => {
@@ -17,38 +17,38 @@ const StandardPoster: React.FC<StandardPosterProps> = ({
     <>
       <div className="overflow-y-auto hidden-scrollbar">
         <div
-          id="poster-standard-wrapper"
+          id="poster-nine-sixteen-wrapper"
           className={cn(
-            'w-[355px] p-[8px] bg-[#EEF95D] flex flex-col gap-[8px]',
+            'w-[355px] h-[631px] p-[8px] bg-[#EEF95D] flex flex-col gap-[8px]',
             className
           )}
           {...props}
         >
           <div
-            id="poster-standard-content"
-            className="flex flex-col items-center px-[24px] py-[40px] gap-[24px] rounded-[8px] bg-white"
+            id="poster-nine-sixteen-content"
+            className="h-[560px] flex flex-col justify-between items-start px-[24px] py-[40px] gap-[24px] rounded-[8px] bg-white"
           >
-            <div className="flex flex-col items-center gap-[32px]">
+            <div className="flex items-center gap-[32px]">
               <Image
                 src={interInfo.image}
-                width={204}
-                height={204}
+                width={119}
+                height={119}
                 alt="music image"
                 className="rounded-[8px] shadow-image"
               />
               <div
-                id="poster-standard-music-text-info"
-                className="max-w-[204px] flex flex-col items-center gap-[19px]"
+                id="poster-nine-sixteen-music-text-info"
+                className="max-w-[201px] flex flex-col items-start gap-[19px]"
               >
                 <p
-                  id="poster-standard-music-text-info-title"
-                  className="w-full text-balance line-clamp-2 font-[600] text-[20px] text-center leading-[24px]"
+                  id="poster-nine-sixteen-music-text-info-title"
+                  className="w-full text-balance line-clamp-2 font-[600] text-[22px] leading-[24px]"
                 >
                   {interInfo.title}
                 </p>
                 <div className="flex items-center gap-[8px] text-[17px]">
                   <p
-                    id="poster-standard-music-text-info-artists"
+                    id="poster-nine-sixteen-music-text-info-artists"
                     className="max-w-[142px] truncate leading-[16px] tracking-[-.48px] font-[500]"
                   >
                     {interInfo.artist}
@@ -56,7 +56,7 @@ const StandardPoster: React.FC<StandardPosterProps> = ({
                   {/* ・ */}
                   <p>&#183;</p>
                   <p
-                    id="poster-standard-music-text-info-year"
+                    id="poster-nine-sixteen-music-text-info-year"
                     className="leading-[24px] tracking-[-.2px] text-[#757771]"
                   >
                     {interInfo.publishYear}
@@ -65,8 +65,8 @@ const StandardPoster: React.FC<StandardPosterProps> = ({
               </div>
             </div>
             <p
-              id="poster-standard-main-text"
-              className="w-full text-[15px] font-[400] leading-normal text-[#2A2D25]"
+              id="poster-nine-sixteen-main-text"
+              className="w-full line-clamp-[10] text-[15px] font-[400] leading-normal text-[#2A2D25]"
             >
               {parse(interInfo.thought)}
             </p>
@@ -83,4 +83,4 @@ const StandardPoster: React.FC<StandardPosterProps> = ({
   );
 };
 
-export default StandardPoster;
+export default NineSixteenPoster;

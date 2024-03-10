@@ -11,3 +11,4 @@ export const spotifyMediaInfoApi: string = `${apiDomain}/api/v2/login-service/mu
 
 // extra
 export const openSpotifyUrl: string = 'https://open.spotify.com';
+export const openAppleMusicUrl: string = 'https://music.apple.com';

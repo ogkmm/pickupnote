@@ -10,13 +10,15 @@ import { toastError, extractIdFromSpotifyLink } from '@/lib/utils';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { spotifyMediaInfoApi } from '@/lib/constants';
-import { MusicInfo, MusicInfoResponse } from '@/lib/type';
-import { DataContext } from '@/lib/context';
+import { MusicSpotifyCodeInter, MusicInfoResponse } from '@/lib/type';
+import { InterInfoProvider } from '@/components/provider/InterInfoProvider';
 
 export default function Home() {
   const inputBoxRef = useRef<HTMLInputElement | null>(null);
   const [sheetOpen, setSheetOpen] = useState<boolean>(false);
-  const [musicInfo, setMusicInfo] = useState<MusicInfo>({} as MusicInfo);
+  const [interInfo, setInterInfo] = useState<MusicSpotifyCodeInter>(
+    {} as MusicSpotifyCodeInter
+  );
 
   const closeSheet = () => setSheetOpen(false);
 
@@ -33,7 +35,7 @@ export default function Home() {
       const history = localStorage.getItem(key);
 
       if (history) {
-        setMusicInfo(JSON.parse(history));
+        setInterInfo(JSON.parse(history));
       } else {
         const { data } = await axios.post<MusicInfoResponse>(
           spotifyMediaInfoApi,
@@ -43,7 +45,7 @@ export default function Home() {
         );
         console.log(data);
         localStorage.setItem(key, JSON.stringify(data.musicInfo));
-        setMusicInfo(data.musicInfo);
+        setInterInfo({ ...data.musicInfo, isSCAvailable: false, thought: '' });
       }
 
       setSheetOpen(true);
@@ -79,9 +81,9 @@ export default function Home() {
                 <NoteStartButton onClick={clickHandle} />
                 <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
                   <SheetContent>
-                    <DataContext.Provider value={musicInfo}>
+                    <InterInfoProvider initValue={interInfo}>
                       <PosterCreator onClose={closeSheet} />
-                    </DataContext.Provider>
+                    </InterInfoProvider>
                   </SheetContent>
                 </Sheet>
               </div>

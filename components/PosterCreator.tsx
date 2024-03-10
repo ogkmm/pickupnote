@@ -1,6 +1,6 @@
 import LinkDetailArea from '@/components/LinkDetailArea';
 import NormalButton from './button/NormalButton';
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import SharePostorButton from './button/SharePostorButton';
 import HamburgerIcon from './svgs/HamburgerIcon';
 import CloseIcon from './svgs/CloseIcon';
@@ -13,8 +13,12 @@ import {
   AlertDialogTrigger
 } from '@/components/AlertDialog';
 import PosterPreviewPanel from './PosterPreviewPanel';
-import { DataContext } from '@/lib/context';
-import { MusicInfo } from '@/lib/type';
+import { DataContext } from './provider/InterInfoProvider';
+import {
+  wait,
+  checkSourceAvailability,
+  generateSpotifyCodeLink
+} from '@/lib/utils';
 
 interface PosterCreatorProps {
   onClose: () => void;
@@ -22,20 +26,66 @@ interface PosterCreatorProps {
 
 export default function PosterCreator({ onClose }: PosterCreatorProps) {
   /* music info context */
-  const musicInfo: MusicInfo = useContext(DataContext);
+  const { state: interInfo, dispatch } = useContext(DataContext);
 
   /* textarea word count */
   const [enteredCharacterLength, setEnteredCharacterLength] = React.useState(0);
+  /* pass on the entered content */
+  const [inputContent, setInputContent] = React.useState<string>('');
+
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setEnteredCharacterLength(e.target.value.length);
+    const value = e.target.value;
+    const formatedContent = value.replace(/\n/g, '<br>');
+
+    setInputContent(formatedContent);
+    setEnteredCharacterLength(value.length);
   };
+
+  /* spotify code availability info */
 
   /* handle open status of generated result dialog (AlertDialog) */
   const [dialogOpenStatus, setDialogOpenStatus] = React.useState(false);
-  const handleShareButtonClick = (): void => {
-    if (!musicInfo) return;
+  const [isCheckingSource, setIsCheckingSource] = React.useState(false);
 
-    setDialogOpenStatus(true);
+  const handleShareButtonClick = async (
+    e: React.MouseEvent<HTMLButtonElement>
+  ): Promise<void> => {
+    e.preventDefault();
+
+    /* if fail to get info from context, do nothing */
+    if (!interInfo) return;
+
+    const key = `${interInfo.platId}_${interInfo.source}_inter_info`;
+
+    if (!Boolean(localStorage.getItem(key))) {
+      const spotifyCodeSourceLink = generateSpotifyCodeLink(interInfo);
+      /* checking spotify code availability before creating poster */
+      setIsCheckingSource(true);
+      const ret = await checkSourceAvailability(spotifyCodeSourceLink);
+      /* update spotify code jotai in context */
+      dispatch({ isSCAvailable: ret.isAvailable, thought: inputContent });
+      /* save to local storage so that no need to check twice */
+      localStorage.setItem(
+        key,
+        JSON.stringify({
+          ...interInfo,
+          isSCAvailable: ret.isAvailable,
+          thought: inputContent
+        })
+      );
+
+      wait(1000).then(() => {
+        setIsCheckingSource(false);
+        setDialogOpenStatus(true);
+      });
+    } else {
+      /* if already checked the availability, take out and apply  */
+      dispatch({
+        isSCAvailable: JSON.parse(localStorage.getItem(key) ?? 'false'),
+        thought: inputContent
+      });
+      setDialogOpenStatus(true);
+    }
   };
 
   return (
@@ -146,7 +196,10 @@ export default function PosterCreator({ onClose }: PosterCreatorProps) {
                       onOpenChange={setDialogOpenStatus}
                     >
                       <AlertDialogTrigger asChild>
-                        <SharePostorButton onClick={handleShareButtonClick} />
+                        <SharePostorButton
+                          onClick={handleShareButtonClick}
+                          status={isCheckingSource}
+                        />
                       </AlertDialogTrigger>
                       <AlertDialogContent>
                         <PosterPreviewPanel

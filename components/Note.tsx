@@ -3,13 +3,13 @@ import RetrievalButton from './button/RetrievalButton';
 import React, { FC, useState, useRef, useContext } from 'react';
 import { cn } from '@/lib/utils';
 import SharePosterModal from './modal/SharePosterModal';
-import { DataContext } from '@/lib/context';
+import { DataContext } from './provider/InterInfoProvider';
 
 interface NoteProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const Note: FC<NoteProps> = ({ className, ...props }) => {
   const [enteredCharacterLength, setEnteredCharacterLength] = useState(0);
-  const musicInfo = useContext(DataContext);
+  const { state: musicInfo } = useContext(DataContext);
   const modalRef = useRef<HTMLDialogElement>(null);
   /* dummy data */
   const detail = {

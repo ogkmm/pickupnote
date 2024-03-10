@@ -2,11 +2,14 @@ import clsx, { ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { MusicInfo, SpotifyLinkType } from './type';
 import toast from 'react-hot-toast';
-import { openSpotifyUrl } from './constants';
+import { openAppleMusicUrl, openSpotifyUrl } from './constants';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export const wait = (msec: number) =>
+  new Promise((resolve) => setTimeout(resolve, msec));
 
 export const isObjectEmpty = (obj: Object) => {
   return Object.keys(obj).length === 0;
@@ -16,8 +19,17 @@ export function checkValidURL(url: string) {
   return url.startsWith('http://') || url.startsWith('https://');
 }
 
-export function generateSpotifyLink(type: string, id: string) {
-  return `${openSpotifyUrl}/${type}/${id}`;
+export function generateMusicSourceLink(info: MusicInfo): string {
+  const isAppleMusicSource: boolean = info.source === 'AppleMusic';
+  const ret: string = isAppleMusicSource
+    ? `${openAppleMusicUrl}`
+    : `${openSpotifyUrl}`;
+
+  if (isAppleMusicSource) {
+    const musicType = info.itemType === 'track' ? 'album' : info.itemType;
+    return `${ret}/${musicType}/${info.platId}`;
+  }
+  return `${ret}/${info.itemType}/${info.platId}`;
 }
 
 export const extractIdFromSpotifyLink = (url: string): string => {
@@ -108,4 +120,56 @@ export const generateSpotifyCodeLink = (info: MusicInfo): string => {
   const baseUrl: string =
     'https://scannables.scdn.co/uri/plain/jpeg/010101/white/300';
   return `${baseUrl}/spotify:${info.itemType}:${info.platId}`;
+};
+
+/**
+ * availability check
+ * If the server returns 200, it is considered accessible;
+ * otherwise it is unavailable (response codes other than 200 or unreachable domain).
+ * */
+export function checkSourceAvailability(
+  url: string,
+  times: number = 0,
+  delay: number = 300
+): Promise<{ target: string; isAvailable: boolean }> {
+  return new Promise((res) => {
+    (function check(t: number) {
+      fetch(url, { mode: 'cors' })
+        .then((r) => {
+          if (r.status === 200) {
+            res({ target: url, isAvailable: true });
+          } else {
+            res({ target: url, isAvailable: false });
+          }
+        })
+        .catch((e) => {
+          if (times === 0) return res({ target: url, isAvailable: false });
+          setTimeout(() => check(--times), delay);
+        });
+    })(times);
+  });
+}
+
+export const getCurrentDate = (): string => {
+  const today: Date = new Date();
+  const year: number = today.getFullYear();
+  /* months are counted starting from 0, so you need to add 1 */
+  const month: number = today.getMonth() + 1;
+  const day: number = today.getDate();
+
+  /* add zero to the month and date */
+  const formattedMonth: string = month < 10 ? '0' + month : '' + month;
+  const formattedDay: string = day < 10 ? '0' + day : '' + day;
+
+  const formattedDate: string = `${year}/${formattedMonth}/${formattedDay}`;
+  return formattedDate;
+};
+
+/* social media share link */
+/* twtter (X) */
+export const generateShareToXLink = (info: MusicInfo) => {
+  const base = 'https://twitter.com/intent/tweet';
+  const text = `Capture your precious music moments with pickupnote 🎉.%0AI just shared a song from ${info.source}, click and start listening ↓`;
+  const url = generateMusicSourceLink(info);
+  return `${base}?text=${text}&url=${url}&hashtags=pickupnote`;
 };

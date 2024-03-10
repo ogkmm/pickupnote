@@ -30,6 +30,12 @@ const nextConfig = {
         hostname: 'scannables.scdn.co',
         port: '',
         pathname: '/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'is1-ssl.mzstatic.com',
+        port: '',
+        pathname: '/**'
       }
     ]
   }

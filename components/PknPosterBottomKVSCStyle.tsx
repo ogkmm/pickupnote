@@ -2,24 +2,22 @@ import React from 'react';
 import Image from 'next/image';
 import LogoEn from '@/components/svgs/LogoEn';
 import SpotifyCodeGuidance from '@/components/svgs/SpotifyCodeGuidance';
-import { MusicInfo } from '@/lib/type';
 import { cn, generateSpotifyCodeLink } from '@/lib/utils';
+import { DataContext } from './provider/InterInfoProvider';
 
-interface PickupnotePosterButtomKVProps
-  extends React.HTMLAttributes<HTMLDivElement> {
-  info: MusicInfo;
-}
+interface PickupnotePosterBottomKVProps
+  extends React.HTMLAttributes<HTMLDivElement> {}
 
-const PickupnotePosterButtomKV = ({
+const PickupnotePosterBottomKVSCStyle = ({
   className,
-  info,
   ...props
-}: PickupnotePosterButtomKVProps) => {
-  const spotifyCode: string = generateSpotifyCodeLink(info);
+}: PickupnotePosterBottomKVProps) => {
+  const { state: interInfo } = React.useContext(DataContext);
+  const spotifyCode: string = generateSpotifyCodeLink(interInfo);
 
   return (
     <div
-      id="pickupnote-poster-buttom-kv"
+      id="pickupnote-poster-buttom-spotifycode-kv"
       className={cn(
         'w-full py-[16px] px-[12px] flex justify-between',
         className
@@ -35,4 +33,4 @@ const PickupnotePosterButtomKV = ({
   );
 };
 
-export default PickupnotePosterButtomKV;
+export default PickupnotePosterBottomKVSCStyle;

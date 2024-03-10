@@ -126,3 +126,15 @@ export type MusicInfoResponse = {
   resMsg: string;
   musicInfo: MusicInfo;
 };
+
+export type SpotifyCodeInfo = {
+  isSCAvailable: boolean;
+};
+
+export type UserMusicThought = {
+  thought: string;
+};
+
+export type MusicSpotifyCodeInter = MusicInfo &
+  SpotifyCodeInfo &
+  UserMusicThought;
