@@ -12,9 +12,6 @@ const PickupnotePosterBottomKVSCStyle = ({
   className,
   ...props
 }: PickupnotePosterBottomKVProps) => {
-  const { state: interInfo } = React.useContext(DataContext);
-  const spotifyCode: string = generateSpotifyCodeLink(interInfo);
-
   return (
     <div
       id="pickupnote-poster-buttom-spotifycode-kv"
@@ -26,7 +23,14 @@ const PickupnotePosterBottomKVSCStyle = ({
     >
       <LogoEn />
       <div className="w-[148px] flex flex-col gap-[7px]">
-        <Image src={spotifyCode} width={148} height={36} alt="spotify code" />
+        <Image
+          src={
+            'https://scannables.scdn.co/uri/plain/jpeg/000000/white/640/spotify:track:5cnVhbHqMWWUJaOgMwY3OJ'
+          }
+          width={148}
+          height={36}
+          alt="spotify code"
+        />
         <SpotifyCodeGuidance />
       </div>
     </div>
