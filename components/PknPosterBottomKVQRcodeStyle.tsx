@@ -25,7 +25,12 @@ const PickupnotePosterBottomKVQRcodeStyle = ({
     >
       <LogoEn />
       <div className="w-[148px] flex gap-[8px] justify-end items-end">
-        <p className="text-[#757771] text-[9px] font-[400]">{'扫码收听歌曲'}</p>
+        <div className="flex flex-col items-end">
+          <p className="text-[#757771] text-[9px] font-[300]">
+            {'Scan QR Code'}
+          </p>
+          <p className="text-[#757771] text-[9px] font-[300]">{'to Play'}</p>
+        </div>
         <QRCodeCanvas
           value={musicSource}
           size={48}

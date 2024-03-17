@@ -167,9 +167,13 @@ export const getCurrentDate = (): string => {
 
 /* social media share link */
 /* twtter (X) */
-export const generateShareToXLink = (info: MusicInfo) => {
-  const base = 'https://twitter.com/intent/tweet';
-  const text = `Capture your precious music moments with pickupnote 🎉.%0AI just shared a song from ${info.source}, click and start listening ↓`;
-  const url = generateMusicSourceLink(info);
-  return `${base}?text=${text}&url=${url}&hashtags=pickupnote`;
+export const generateShareToSocialMediaContent = (info: MusicInfo) => {
+  const text = `Capture your precious music moments with pickupnote 🎉.\nI just shared a song from ${info.source}, click and start listening`;
+  const musicLink = generateMusicSourceLink(info);
+
+  return {
+    content: text,
+    musicUrl: musicLink,
+    tags: ['pickupnote', 'memory']
+  };
 };

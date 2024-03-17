@@ -5,11 +5,11 @@ import PosterVariantRadioGroup, {
   PosterVariant
 } from '@/components/PosterVariantRadioGroup';
 import {
-  ShareToInstagramButton,
   ShareToXButton,
   ShareToFacebookButton
 } from '@/components/button/social-media';
-import { cn, generateShareToXLink } from '@/lib/utils';
+import { FacebookShareButton, TwitterShareButton } from 'react-share';
+import { cn, generateShareToSocialMediaContent } from '@/lib/utils';
 import Poster from './posters/Poster';
 import { Separator } from './Separator';
 import { DataContext } from './provider/InterInfoProvider';
@@ -24,10 +24,13 @@ const PosterPreviewPanel: React.FC<PosterPreviewPanelProps> = ({
   ...props
 }) => {
   const { state: interInfo } = useContext(DataContext);
+  const { content, musicUrl, tags } =
+    generateShareToSocialMediaContent(interInfo);
 
   const [posterVariant, setPosterVariant] = React.useState(
     PosterVariant.STANDARD
   );
+
   const handleVariantChange = (variant: PosterVariant) => {
     setPosterVariant(variant);
   };
@@ -69,10 +72,10 @@ const PosterPreviewPanel: React.FC<PosterPreviewPanelProps> = ({
         <Poster variant={posterVariant} />
         <div
           id="poster-customize-toolbar"
-          className="absolute flex gap-[36px] w-[361px] h-[44px] px-[28px] py-[6px] bottom-[20px] rounded-[20px] shadow-image bg-white"
+          className="absolute flex gap-[36px] w-[374px] h-[44px] px-[28px] py-[6px] bottom-[20px] rounded-[20px] shadow-image bg-white"
         >
           <p className="text-[17px] leading-[32px] font-[400] tracking-[-.2px] text-[#757771]">
-            {'choose size'}
+            {'Aspect ratio'}
           </p>
           <PosterVariantRadioGroup
             className="flex-1"
@@ -97,12 +100,13 @@ const PosterPreviewPanel: React.FC<PosterPreviewPanelProps> = ({
           <p className="text-[#DFE0DE] text-[17px] font-[400] leading-[24px] tracking-[-.2px]">
             {'Share to'}
           </p>
-          <div className="w-[228.4px] flex justify-between items-center">
-            <ShareToInstagramButton />
-            <a href={generateShareToXLink(interInfo)} target="_blank">
+          <div className="flex gap-[32px] items-center">
+            <TwitterShareButton url={musicUrl} title={content} hashtags={tags}>
               <ShareToXButton />
-            </a>
-            <ShareToFacebookButton />
+            </TwitterShareButton>
+            <FacebookShareButton url={musicUrl} hashtag="pickupnote">
+              <ShareToFacebookButton />
+            </FacebookShareButton>
           </div>
         </div>
       </div>

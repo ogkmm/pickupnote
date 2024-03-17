@@ -81,7 +81,8 @@ export default function PosterCreator({ onClose }: PosterCreatorProps) {
     } else {
       /* if already checked the availability, take out and apply  */
       dispatch({
-        isSCAvailable: JSON.parse(localStorage.getItem(key) ?? 'false'),
+        isSCAvailable: JSON.parse(localStorage.getItem(key) ?? 'false')
+          .isSCAvailable,
         thought: inputContent
       });
       setDialogOpenStatus(true);

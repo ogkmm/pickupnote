@@ -67,10 +67,11 @@ const PosterVariantRadioGroup: React.FC<PosterVariantRadioGroupProps> = ({
         />
         <label
           htmlFor="standard-radio"
-          className="text-[17px] leading-[32px] font-[400] cursor-pointer border-b-[6px] border-transparent peer-checked:border-[#423FA1]"
+          className="text-[17px] leading-[32px] font-[400] cursor-pointer"
         >
           {PosterVariant.STANDARD}
         </label>
+        <div className="h-[6px] w-full mt-[-6px] peer-checked:bg-[#EEF95D]" />
       </div>
       <div className="flex flex-col">
         <input
@@ -84,10 +85,11 @@ const PosterVariantRadioGroup: React.FC<PosterVariantRadioGroupProps> = ({
         />
         <label
           htmlFor="nine-sixteen-radio"
-          className="text-[17px] leading-[32px] font-[400] cursor-pointer border-b-[6px] border-transparent peer-checked:border-[#423FA1]"
+          className="text-[17px] leading-[32px] font-[400] cursor-pointer"
         >
           {PosterVariant.NINE_SIXTEEN}
         </label>
+        <div className="h-[6px] w-full mt-[-6px] peer-checked:bg-[#EEF95D]" />
       </div>
       <div className="flex flex-col">
         <input
@@ -101,10 +103,11 @@ const PosterVariantRadioGroup: React.FC<PosterVariantRadioGroupProps> = ({
         />
         <label
           htmlFor="square-radio"
-          className="text-[17px] leading-[32px] font-[400] cursor-pointer border-b-[6px] border-transparent peer-checked:border-[#423FA1]"
+          className="text-[17px] leading-[32px] font-[400] cursor-pointer"
         >
           {PosterVariant.SQUARE}
         </label>
+        <div className="h-[6px] w-full mt-[-6px] peer-checked:bg-[#EEF95D]" />
       </div>
     </div>
   );
