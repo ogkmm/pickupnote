@@ -1,6 +1,6 @@
 import LinkDetailArea from '@/components/LinkDetailArea';
 import NormalButton from './button/NormalButton';
-import React, { useContext, useRef } from 'react';
+import React, { useContext } from 'react';
 import SharePostorButton from './button/SharePostorButton';
 import HamburgerIcon from './svgs/HamburgerIcon';
 import CloseIcon from './svgs/CloseIcon';

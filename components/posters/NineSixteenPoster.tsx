@@ -1,79 +1,80 @@
 import * as React from 'react';
-import { cn, getCurrentDate } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import { DataContext } from '../provider/InterInfoProvider';
 import Image from 'next/image';
 import PknPosterBottomKV from '../PknPosterBottomKV';
 import parse from 'html-react-parser';
+import PosterFooter from './components/PosterFooter';
 
 interface NineSixteenPosterProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-const NineSixteenPoster: React.FC<NineSixteenPosterProps> = ({
-  className,
-  ...props
-}) => {
+const NineSixteenPoster = React.forwardRef<
+  HTMLDivElement,
+  NineSixteenPosterProps
+>(({ className, ...props }, ref) => {
   const { state: interInfo } = React.useContext(DataContext);
 
   return (
     <>
       <div className="overflow-y-auto hidden-scrollbar">
         <div
-          id="poster-nine-sixteen-wrapper"
+          id="poster-ninesixteen-wrapper"
           className={cn(
-            'w-[355px] h-[631px] p-[8px] bg-[#EEF95D] flex flex-col gap-[8px]',
+            'w-[1080px] h-[1920px] p-[16px] bg-[#EEF95D] flex flex-col gap-[8px]',
             className
           )}
+          ref={ref}
           {...props}
         >
           <div
-            id="poster-nine-sixteen-content"
-            className="h-[560px] flex flex-col justify-between items-start px-[24px] py-[40px] gap-[24px] rounded-[8px] bg-white"
+            id="poster-ninesixteen-content"
+            className="flex flex-col items-center px-[48px] py-[80px] gap-[88px] rounded-[40px] bg-white"
           >
-            <div className="flex items-center gap-[32px]">
-              <Image
-                src={interInfo.image}
-                width={119}
-                height={119}
-                alt="music image"
-                className="rounded-[8px] shadow-image"
-              />
-              <div
-                id="poster-nine-sixteen-music-text-info"
-                className="max-w-[201px] flex flex-col items-start gap-[19px]"
-              >
-                <p
-                  id="poster-nine-sixteen-music-text-info-title"
-                  className="w-full text-balance line-clamp-2 font-[600] text-[22px] leading-[24px]"
+            <div className="w-full flex justify-start">
+              <div className="flex items-center gap-[64px]">
+                <Image
+                  src={interInfo.image}
+                  width={348}
+                  height={348}
+                  alt="music image"
+                  className="rounded-[8px] shadow-image"
+                />
+                <div
+                  id="poster-ninesixteen-music-text-info"
+                  className="max-w-[418px] flex flex-col items-start gap-[40px]"
                 >
-                  {interInfo.title}
-                </p>
-                <div className="flex items-center gap-[8px] text-[17px]">
                   <p
-                    id="poster-nine-sixteen-music-text-info-artists"
-                    className="max-w-[142px] truncate leading-[16px] tracking-[-.48px] font-[500]"
+                    id="poster-ninesixteen-music-text-info-title"
+                    className="w-full text-balance line-clamp-2 font-[600] text-[64px] leading-none"
                   >
-                    {interInfo.artist}
+                    {interInfo.title}
                   </p>
-                  {/* ・ */}
-                  <p>&#183;</p>
-                  <p
-                    id="poster-nine-sixteen-music-text-info-year"
-                    className="leading-[24px] tracking-[-.2px] text-[#757771]"
-                  >
-                    {interInfo.publishYear}
-                  </p>
+                  <div className="flex items-center gap-[16px] text-[34px]">
+                    <p
+                      id="poster-ninesixteen-music-text-info-artists"
+                      className="max-w-[301px] truncate leading-none tracking-[-.2px] font-[500]"
+                    >
+                      {interInfo.artist}
+                    </p>
+                    {/* ・ */}
+                    <p>&#183;</p>
+                    <p
+                      id="poster-ninesixteen-music-text-info-year"
+                      className="leading-none tracking-[-.2px] text-[#757771]"
+                    >
+                      {interInfo.publishYear}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
             <p
-              id="poster-nine-sixteen-main-text"
-              className="w-full line-clamp-[10] text-[15px] font-[400] leading-normal text-[#2A2D25]"
+              id="poster-ninesixteen-main-text"
+              className="w-full h-[1010px] text-wrap break-all line-clamp-[14] text-[48px] font-[400] leading-normal text-[#2A2D25]"
             >
               {parse(interInfo.thought)}
             </p>
-            <div className="w-full flex justify-between text-[13px] font-[300] leading-[16px] tracking-[-.4] text-[#757771]">
-              <p>{'www.pickupnote.com'}</p>
-              <p>{getCurrentDate()}</p>
-            </div>
+            <PosterFooter />
           </div>
           <PknPosterBottomKV />
         </div>
@@ -81,6 +82,8 @@ const NineSixteenPoster: React.FC<NineSixteenPosterProps> = ({
       </div>
     </>
   );
-};
+});
+
+NineSixteenPoster.displayName = 'NineSixteenPoster';
 
 export default NineSixteenPoster;

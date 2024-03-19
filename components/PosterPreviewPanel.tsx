@@ -13,6 +13,9 @@ import { cn, generateShareToSocialMediaContent } from '@/lib/utils';
 import Poster from './posters/Poster';
 import { Separator } from './Separator';
 import { DataContext } from './provider/InterInfoProvider';
+import { toPng } from 'html-to-image';
+import usePoster from '@/hooks/usePoster';
+import SvgSpinners3DotsFade from './svgs/SvgSpinners3DotsFade';
 
 interface PosterPreviewPanelProps extends React.HTMLAttributes<HTMLDivElement> {
   onClose: () => void;
@@ -34,6 +37,29 @@ const PosterPreviewPanel: React.FC<PosterPreviewPanelProps> = ({
   const handleVariantChange = (variant: PosterVariant) => {
     setPosterVariant(variant);
   };
+
+  /* pre-render poster to image */
+  const posterRef = React.useRef<HTMLDivElement>(null);
+  const { poster, loading: posterIsLoading } = usePoster(posterRef);
+
+  /* download handler */
+  const handlePosterDownload = React.useCallback(() => {
+    if (!posterRef.current) return;
+
+    /* e.g. <div id="poster-square-wrapper" ... */
+    const aspect = posterRef.current.id.split('-')[1];
+
+    toPng(posterRef.current!, {
+      cacheBust: true,
+      pixelRatio: 1,
+      includeQueryParams: true
+    }).then((dataUrl) => {
+      const a = document.createElement('a');
+      a.href = dataUrl;
+      a.download = `${interInfo.title}_${aspect}.png`;
+      a.click();
+    });
+  }, [posterRef, interInfo.title]);
 
   return (
     <div
@@ -69,7 +95,17 @@ const PosterPreviewPanel: React.FC<PosterPreviewPanelProps> = ({
             />
           </button>
         </div>
-        <Poster variant={posterVariant} />
+        <div className="overflow-auto hidden-scrollbar">
+          {posterIsLoading ? (
+            <SvgSpinners3DotsFade />
+          ) : (
+            <img src={poster} alt="preview-poster" />
+          )}
+          <div className="h-[104px]" />
+        </div>
+        <div className="sr-only">
+          <Poster ref={posterRef} variant={posterVariant} />
+        </div>
         <div
           id="poster-customize-toolbar"
           className="absolute flex gap-[36px] w-[374px] h-[44px] px-[28px] py-[6px] bottom-[20px] rounded-[20px] shadow-image bg-white"
@@ -87,7 +123,7 @@ const PosterPreviewPanel: React.FC<PosterPreviewPanelProps> = ({
         id="poster-controll-panel"
         className="w-full flex flex-col sm:flex-row justify-center items-center gap-[28px]"
       >
-        <DownloadPosterButton />
+        <DownloadPosterButton onClick={handlePosterDownload} />
         <Separator
           className="hidden sm:block h-full w-px bg-white"
           decorative

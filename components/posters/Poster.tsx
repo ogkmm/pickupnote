@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import StandardPoster from './StandardPoster';
 import SquarePoster from './SquarePoster';
 import { PosterVariant } from '../PosterVariantRadioGroup';
@@ -14,12 +14,18 @@ interface PosterProps extends React.HTMLAttributes<HTMLDivElement> {
   variant: PosterVariant;
 }
 
-const Poster: React.FC<PosterProps> = ({ variant }) => {
-  if (variant === PosterVariant.NINE_SIXTEEN) return <NineSixteenPoster />;
+const Poster = forwardRef<HTMLDivElement, PosterProps>(
+  ({ className, variant }, ref) => {
+    if (variant === PosterVariant.NINE_SIXTEEN)
+      return <NineSixteenPoster className={className} ref={ref} />;
 
-  if (variant === PosterVariant.SQUARE) return <SquarePoster />;
+    if (variant === PosterVariant.SQUARE)
+      return <SquarePoster className={className} ref={ref} />;
 
-  return <StandardPoster />;
-};
+    return <StandardPoster className={className} ref={ref} />;
+  }
+);
+
+Poster.displayName = 'Poster';
 
 export default Poster;

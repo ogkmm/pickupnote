@@ -32,7 +32,7 @@ const LinkDetailArea: React.FC<LinkDetailAreaProps> = () => {
         >
           <p
             id="music-text-info-title"
-            className="text-balance font-bold text-[22px] lg:text-[34px] leading-[31px] lg:leading-[40px] tracking-[-.66px] lg:tracking-[-1px] line-clamp-2"
+            className="text-center text-balance font-bold text-[22px] lg:text-[34px] leading-[31px] lg:leading-[40px] tracking-[-.66px] lg:tracking-[-1px] line-clamp-2"
           >
             {info.title}
           </p>

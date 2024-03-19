@@ -1,9 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
-import LogoEn from '@/components/svgs/LogoEn';
 import SpotifyCodeGuidance from '@/components/svgs/SpotifyCodeGuidance';
 import { cn, generateSpotifyCodeLink } from '@/lib/utils';
 import { DataContext } from './provider/InterInfoProvider';
+import LogoEnM from './svgs/LogoEnM';
 
 interface PickupnotePosterBottomKVProps
   extends React.HTMLAttributes<HTMLDivElement> {}
@@ -19,14 +19,14 @@ const PickupnotePosterBottomKVSCStyle = ({
     <div
       id="pickupnote-poster-buttom-spotifycode-kv"
       className={cn(
-        'w-full py-[16px] px-[12px] flex justify-between',
+        'w-full py-[32px] px-[24px] flex justify-between',
         className
       )}
       {...props}
     >
-      <LogoEn />
-      <div className="w-[148px] flex flex-col gap-[7px]">
-        <Image src={spotifyCode} width={148} height={36} alt="spotify code" />
+      <LogoEnM />
+      <div className="w-[296px] flex flex-col gap-[13.6px]">
+        <Image src={spotifyCode} width={296} height={70.7} alt="spotify code" />
         <SpotifyCodeGuidance />
       </div>
     </div>
