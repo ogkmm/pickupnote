@@ -6,24 +6,35 @@ import React, { useRef, useState } from 'react';
 import { Sheet, SheetContent } from '@/components/Sheet';
 import PosterCreator from '@/components/PosterCreator';
 import KVLogo from '@/components/svgs/KVLogo';
-import { toastError, extractIdFromSpotifyLink } from '@/lib/utils';
+import { toastError, extractIdFromSpotifyLink, cleanURL } from '@/lib/utils';
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import { spotifyMediaInfoApi } from '@/lib/constants';
+import { spotifyMusicInfoAPI } from '@/lib/constants';
 import { MusicSpotifyCodeInter, MusicInfoResponse } from '@/lib/type';
 import { InterInfoProvider } from '@/components/provider/InterInfoProvider';
 
 export default function Home() {
-  const inputBoxRef = useRef<HTMLInputElement | null>(null);
+  const inputBoxRef = useRef<HTMLInputElement>(null);
   const [sheetOpen, setSheetOpen] = useState<boolean>(false);
+  const [platformShareLink, setPlatformShareLink] = useState<string>('');
   const [interInfo, setInterInfo] = useState<MusicSpotifyCodeInter>(
     {} as MusicSpotifyCodeInter
   );
 
   const closeSheet = () => setSheetOpen(false);
+  const repickMusic = () => {
+    setSheetOpen(false);
+    setPlatformShareLink('');
+    setTimeout(() => {
+      inputBoxRef.current?.focus();
+    }, 100);
+  };
 
-  const clickHandle = (): void => {
-    const shareLink: string | undefined = inputBoxRef.current?.value;
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setPlatformShareLink(e.target.value);
+
+  const handleClick = (): void => {
+    const shareLink: string | undefined = cleanURL(inputBoxRef.current?.value);
     if (!shareLink) {
       toastError('Enter a link please.');
       setSheetOpen(false);
@@ -38,12 +49,11 @@ export default function Home() {
         setInterInfo(JSON.parse(history));
       } else {
         const { data } = await axios.post<MusicInfoResponse>(
-          spotifyMediaInfoApi,
+          spotifyMusicInfoAPI,
           {
             url: link
           }
         );
-        console.log(data);
         localStorage.setItem(key, JSON.stringify(data.musicInfo));
         setInterInfo({ ...data.musicInfo, isSCAvailable: false, thought: '' });
       }
@@ -77,12 +87,19 @@ export default function Home() {
                 <p>如何获得曲目链接</p>
               </button>
               <div className="flex flex-nowrap justify-center items-center gap-[8px] min-w-[311px] sm:min-w-[528px] my-[11px] py-[9px] px-[24px] bg-white rounded-[8px]">
-                <RetrievalInputBox ref={inputBoxRef} />
-                <NoteStartButton onClick={clickHandle} />
+                <RetrievalInputBox
+                  ref={inputBoxRef}
+                  value={platformShareLink}
+                  onChange={handleInputChange}
+                />
+                <NoteStartButton onClick={handleClick} />
                 <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
                   <SheetContent>
                     <InterInfoProvider initValue={interInfo}>
-                      <PosterCreator onClose={closeSheet} />
+                      <PosterCreator
+                        onClose={closeSheet}
+                        onRepick={() => repickMusic()}
+                      />
                     </InterInfoProvider>
                   </SheetContent>
                 </Sheet>

@@ -5,10 +5,12 @@ import MusicSymbolTrebleClef from '../svgs/MusicSymbolTrebleClef';
 import MusicSymbolBassClef from '../svgs/MusicSymbolBassClef';
 
 interface RetrievalInputBoxProps
-  extends React.HTMLAttributes<HTMLInputElement> {}
+  extends React.HTMLAttributes<HTMLInputElement> {
+  value?: string;
+}
 
 const RetrievalInputBox = forwardRef<HTMLInputElement, RetrievalInputBoxProps>(
-  ({ className, ...props }, ref) => {
+  ({ className, value, ...props }, ref) => {
     const [selected, setSelected] = React.useState(false);
 
     const handleInputOnFocus = () => {
@@ -27,6 +29,7 @@ const RetrievalInputBox = forwardRef<HTMLInputElement, RetrievalInputBoxProps>(
             type="url"
             placeholder={retrievalBoxPlaceHolderText}
             ref={ref}
+            value={value}
             onFocus={handleInputOnFocus}
             onBlur={handleInputOnBlur}
             {...props}

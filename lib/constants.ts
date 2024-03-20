@@ -7,8 +7,8 @@ export const loginOutButtonText: string = '注册/登录';
 
 // backend api interface
 export const apiDomain: string = env.NEXT_PUBLIC_BACKEND_DOMAIN;
-export const spotifyMediaInfoApi: string = `${apiDomain}/api/v2/login-service/musicInfo`;
+export const spotifyMusicInfoAPI: string = `${apiDomain}/api/v2/login-service/musicInfo`;
 
 // extra
-export const openSpotifyUrl: string = 'https://open.spotify.com';
-export const openAppleMusicUrl: string = 'https://music.apple.com';
+export const openSpotifyURL: string = 'https://open.spotify.com';
+export const openAppleMusicURL: string = 'https://music.apple.com';

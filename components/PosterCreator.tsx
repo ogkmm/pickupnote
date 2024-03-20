@@ -22,9 +22,13 @@ import {
 
 interface PosterCreatorProps {
   onClose: () => void;
+  onRepick: () => void;
 }
 
-export default function PosterCreator({ onClose }: PosterCreatorProps) {
+export default function PosterCreator({
+  onClose,
+  onRepick
+}: PosterCreatorProps) {
   /* music info context */
   const { state: interInfo, dispatch } = useContext(DataContext);
 
@@ -186,7 +190,7 @@ export default function PosterCreator({ onClose }: PosterCreatorProps) {
                     />
                   </div>
                   <div className="mt-[20px] px-[28px] w-full flex justify-between text-[#757771] text-[12px] font-[300] leading-[16px] tracking-[-.4px]">
-                    <p>{'Autosaved'}</p>
+                    <p>{''}</p>
                     <p>{`${enteredCharacterLength} words`}</p>
                   </div>
                 </div>
@@ -210,7 +214,7 @@ export default function PosterCreator({ onClose }: PosterCreatorProps) {
                         />
                       </AlertDialogContent>
                     </AlertDialog>
-                    <NormalButton name="Re-pickup" />
+                    <NormalButton name="Re-pickup" onClick={onRepick} />
                   </div>
                 </div>
               </div>

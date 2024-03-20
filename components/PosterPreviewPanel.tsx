@@ -6,9 +6,14 @@ import PosterVariantRadioGroup, {
 } from '@/components/PosterVariantRadioGroup';
 import {
   ShareToXButton,
-  ShareToFacebookButton
+  ShareToFacebookButton,
+  ShareToWeiboButton
 } from '@/components/button/social-media';
-import { FacebookShareButton, TwitterShareButton } from 'react-share';
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  WeiboShareButton
+} from 'react-share';
 import { cn, generateShareToSocialMediaContent } from '@/lib/utils';
 import Poster from './posters/Poster';
 import { Separator } from './Separator';
@@ -143,6 +148,9 @@ const PosterPreviewPanel: React.FC<PosterPreviewPanelProps> = ({
             <FacebookShareButton url={musicUrl} hashtag="pickupnote">
               <ShareToFacebookButton />
             </FacebookShareButton>
+            <WeiboShareButton url={musicUrl} title={content}>
+              <ShareToWeiboButton />
+            </WeiboShareButton>
           </div>
         </div>
       </div>

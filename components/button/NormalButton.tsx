@@ -6,6 +6,7 @@ interface NormalButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 }
 
 export const NormalButton: React.FC<NormalButtonProps> = ({
+  className,
   name,
   ...props
 }) => {
@@ -13,8 +14,9 @@ export const NormalButton: React.FC<NormalButtonProps> = ({
     <button
       className={cn(
         'w-auto text-[17px] leading-[22.5px] tracking-[-.6px] font-[400] hover:text-slate-500 transition-colors duration-300 ease-in-out',
-        props.className
+        className
       )}
+      {...props}
     >
       {name}
     </button>

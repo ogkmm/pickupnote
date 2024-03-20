@@ -2,7 +2,7 @@ import clsx, { ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { MusicInfo, SpotifyLinkType } from './type';
 import toast from 'react-hot-toast';
-import { openAppleMusicUrl, openSpotifyUrl } from './constants';
+import { openAppleMusicURL, openSpotifyURL } from './constants';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -19,11 +19,18 @@ export function checkValidURL(url: string) {
   return url.startsWith('http://') || url.startsWith('https://');
 }
 
+/* _____https://a____bc.c__om____ */
+export const cleanURL = (dirtyURL: string | undefined) => {
+  if (!dirtyURL) return dirtyURL;
+
+  return dirtyURL.trim().replace(/\s+/g, '');
+};
+
 export function generateMusicSourceLink(info: MusicInfo): string {
   const isAppleMusicSource: boolean = info.source === 'AppleMusic';
   const ret: string = isAppleMusicSource
-    ? `${openAppleMusicUrl}`
-    : `${openSpotifyUrl}`;
+    ? `${openAppleMusicURL}`
+    : `${openSpotifyURL}`;
 
   if (isAppleMusicSource) {
     const musicType = info.itemType === 'track' ? 'album' : info.itemType;
